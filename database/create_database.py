@@ -1,14 +1,18 @@
 import sqlite3
+import os
 
 '''
-Denne filen leser inn "CREATE TABEL"-setningene fra .sql filen, og oppretter tilsvarende, tomme tabeller i databasen.
+Denne filen leser inn "CREATE TABLE"-setningene fra .sql filen, og oppretter tilsvarende, tomme tabeller i databasen.
 '''
 
-con = sqlite3.connect('database.db')
+dirname = os.path.dirname(__file__)
+filename = os.path.join(dirname, '../sql/gruppe_21_db1_sql_script.sql')
+
+con = sqlite3.connect(f'{dirname}/database.db')
 
 cur = con.cursor()
 
-with open('gruppe_21_db1_sql_script.sql', 'r') as sql_file:
+with open(filename, 'r') as sql_file:
     sql_commands = sql_file.read()
     cur.executescript(sql_commands)
 
