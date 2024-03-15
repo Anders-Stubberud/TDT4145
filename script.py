@@ -31,7 +31,7 @@ def query(table, select_statement="*", where_statement=None, group_by=None, havi
 Setter inn data i databasen.
 
 obs:
-values oppgis som tuppel med attributter, eksempelvis values = ('Hovedscenen')
+values oppgis som array med attributter, eksempelvis values = ['Hovedscenen']
 '''
 def insert(table, values):
     con = sqlite3.connect('./database/database.db')
@@ -46,7 +46,7 @@ def insert(table, values):
     con.commit()
     con.close()
 
-insert('Teatersal', ['testescene5'])
+# insert('Teatersal', ['testescene7'])
 
-# for row in query('Teatersal'):
-#     print(row)
+for row in query('Teatersal'):
+    print(row)
