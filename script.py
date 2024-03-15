@@ -36,12 +36,17 @@ values oppgis som tuppel med attributter, eksempelvis values = ('Hovedscenen')
 def insert(table, values):
     con = sqlite3.connect('./database/database.db')
     cursor = con.cursor()
-    cursor.execute(f'INSERT INTO {table} VALUES ({", ".join(["?"] * len(values))})', values)
+    formatted_values = []
+    for val in values:
+        if isinstance(val, str):
+            formatted_values.append(f"'{val}'")
+        else:
+            formatted_values.append(str(val))
+    cursor.execute(f'INSERT INTO {table} VALUES ({", ".join(formatted_values)})')
     con.commit()
     con.close()
 
-#litt testing
-# insert('Teatersal', ('testescene3'))
+insert('Teatersal', ['testescene5'])
 
 # for row in query('Teatersal'):
 #     print(row)
