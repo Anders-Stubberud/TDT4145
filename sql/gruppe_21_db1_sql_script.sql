@@ -1,7 +1,7 @@
 -- Følgende restriksjoner må håndteres i applikasjonsprogrammet
 -- Forestillingene til de ulike stykkene skal gå på bestemte datoer og klokkeslett
 -- Det skal kun være mulig å sette opp stykkene «Kongsemnene» og «Størst av alt er kjærligheten.»
--- Prisen til billettene skal avgjøres basert på kundens gruppe. 
+-- Prisen til billettene skal avgjøres basert på kundens gruppe.
 -- Billettene tilhørende et billettkjøp hører til samme forestilling.
 -- Barn skal ikke kunne kjøpe billetter til  «Kongsemnene».
 -- Hvorvidt tittelen til en ansatt er gyldig.
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS Akt (
 );
 
 CREATE TABLE IF NOT EXISTS Rolle (
-    rolleID INTEGER AUTO_INCREMENT NOT NULL,
+    rolleID INTEGER AUTOINCREMENT NOT NULL,
     navn TEXT NOT NULL,
     navnPaStykke TEXT NOT NULL,
     PRIMARY KEY (rolleID),
@@ -56,14 +56,14 @@ CREATE TABLE IF NOT EXISTS rolleIAkt (
 );
 
 CREATE TABLE IF NOT EXISTS Skuespiller (
-    skuespillerID INTEGER AUTO_INCREMENT NOT NULL,
+    skuespillerID INTEGER AUTOINCREMENT NOT NULL,
     fornavn TEXT NOT NULL,
     etternavn TEXT NOT NULL,
     PRIMARY KEY (skuespillerID)
 );
 
 CREATE TABLE IF NOT EXISTS spillerRolle (
-    rolleID INTEGER AUTO_INCREMENT NOT NULL,
+    rolleID INTEGER AUTOINCREMENT NOT NULL,
     skuespillerID INTEGER NOT NULL,
     PRIMARY KEY (rolleID, skuespillerID),
     FOREIGN KEY (rolleID)
@@ -88,13 +88,13 @@ CREATE TABLE IF NOT EXISTS spillerIAkt (
 );
 
 CREATE TABLE IF NOT EXISTS Omraade (
-    omraadeID INTEGER AUTO_INCREMENT NOT NULL,
+    omraadeID INTEGER AUTOINCREMENT NOT NULL,
     omraadenavn TEXT NOT NULL,
     PRIMARY KEY (omraadeID)
 );
 
 CREATE TABLE IF NOT EXISTS Stol (
-    stolID INTEGER AUTO_INCREMENT NOT NULL,
+    stolID INTEGER AUTOINCREMENT NOT NULL,
     stolnummer INTEGER NOT NULL,
     radnummer INTEGER NOT NULL,
     salnavn TEXT NOT NULL,
@@ -109,7 +109,7 @@ CREATE TABLE IF NOT EXISTS Stol (
 );
 
 CREATE TABLE IF NOT EXISTS Forestilling (
-    forestillingID INTEGER AUTO_INCREMENT NOT NULL,
+    forestillingID INTEGER AUTOINCREMENT NOT NULL,
     dato DATE NOT NULL,
     navnPaStykke TEXT NOT NULL,
     PRIMARY KEY (forestillingID),
@@ -135,7 +135,7 @@ CREATE TABLE IF NOT EXISTS Kundeprofil (
 );
 
 CREATE TABLE IF NOT EXISTS Pris (
-    prisID INTEGER AUTO_INCREMENT NOT NULL,
+    prisID INTEGER AUTOINCREMENT NOT NULL,
     pris FLOAT NOT NULL,
     PRIMARY KEY (prisID)
 );
@@ -165,7 +165,7 @@ CREATE TABLE IF NOT EXISTS KostnadForForestilling (
 );
 
 CREATE TABLE IF NOT EXISTS BillettKjøp (
-    kjøpsID INTEGER AUTO_INCREMENT NOT NULL,
+    kjøpsID INTEGER AUTOINCREMENT NOT NULL,
     dato DATE NOT NULL,
     tid TIME NOT NULL,
     mobilnummer INTEGER NOT NULL,
@@ -176,7 +176,7 @@ CREATE TABLE IF NOT EXISTS BillettKjøp (
 );
 
 CREATE TABLE IF NOT EXISTS Billett (
-    billettID INTEGER AUTO_INCREMENT NOT NULL,
+    billettID INTEGER AUTOINCREMENT NOT NULL,
     stolID INTEGER NOT NULL,
     forestillingID INTEGER NOT NULL,
     kjøpsID INTEGER NOT NULL,

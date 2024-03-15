@@ -96,7 +96,32 @@ insert_stoler_Balkong('Gamle scene', 4)
 insert_stoler_Galleri('Gamle scene', 3)
 
 
-def insert_teaterstykker():
+""" def insert_teaterstykker():
     teaterstykke_data = [('Kongsemnene', 'Hovedscenen', '19:00'), ('Størst av alt er kjærligheten', 'Gamle scene', '18:30')]
     for stykke, sal, tid in teaterstykke_data:
         insert('Teaterstykke', (stykke, sal, tid))
+
+def insert_roller():
+    rolle_data = [
+        ('Håkon Håkonssønn', 1), ('Dagfinn Bonde', 1), ('Jatgeir Skald', 1), ('Sigrid', 1),
+        ('Ingebjørg', 1), ('Guttorm Ingesson', 1), ('Skule jarl', 1), ('Inga fra Vartejg', 1),
+        ('Paal Flida', 1), ('Fru Ragnhild', 1), ('Gregorius Jonssønn', 1), ('Margrete', 1),
+        ('Biskop Nikolas', 1), ('Peter', 1)
+    ]
+    for rolle, navn in rolle_data:
+        insert('Rolle', (None, rolle, navn))
+
+
+def insert_skuespiller():
+    skuespiller_data = [
+        ('Arturo', 'Scotti'), ('Emil', 'Olafsson'), ('Emil', 'Olafsson'), ('Emma Caroline', 'Deichmann'),
+        ('Emma Caroline', 'Deichmann'), (None, None), ('Hans Petter', 'Nilsen'), ('Ingunn Beate', 'Strige Øyen'),
+        ('Isak Holmen', 'Sørensen'), ('Madeleine Brandtzæg', 'Nilsen'), ('Per Bogstad', 'Gulliksen'),
+        ('Synnøve Fossum', 'Eriksen'), ('Thomas Jensen', 'Takyi'), ('Snorre Ryen', 'Tøndel')
+    ]
+    for fornavn, etternavn in skuespiller_data:
+        insert('Skuespiller', (None, fornavn, etternavn))
+
+
+insert_roller()
+insert_skuespiller() """
