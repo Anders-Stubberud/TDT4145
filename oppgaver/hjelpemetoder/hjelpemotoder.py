@@ -48,5 +48,5 @@ def insert(table, values):
 
 # insert('Teatersal', ['testescene7'])
 
-for row in query('Teatersal'):
-    print(row)
+# for row in query('Teatersal'):
+#     print(row)

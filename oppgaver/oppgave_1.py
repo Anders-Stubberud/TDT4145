@@ -1,1 +1,2 @@
-from script import query, insert
+from hjelpemetoder.hjelpemotoder import query, insert
+
