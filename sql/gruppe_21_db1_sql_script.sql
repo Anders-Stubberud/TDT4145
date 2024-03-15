@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS Teatersal (
 CREATE TABLE IF NOT EXISTS Teaterstykke (
     navnPaStykke TEXT NOT NULL,
     salnavn TEXT NOT NULL,
-		klokkeslett TIME NOT NULL,
+    klokkeslett TIME NOT NULL,
     PRIMARY KEY (navnPaStykke),
     FOREIGN KEY (salnavn)
         REFERENCES Teatersal (salnavn)
@@ -32,10 +32,9 @@ CREATE TABLE IF NOT EXISTS Akt (
 );
 
 CREATE TABLE IF NOT EXISTS Rolle (
-    rolleID INTEGER AUTOINCREMENT NOT NULL,
+    rolleID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     navn TEXT NOT NULL,
     navnPaStykke TEXT NOT NULL,
-    PRIMARY KEY (rolleID),
     FOREIGN KEY (navnPaStykke)
         REFERENCES Teaterstykke (navnPaStykke)
             ON UPDATE CASCADE
@@ -56,16 +55,14 @@ CREATE TABLE IF NOT EXISTS rolleIAkt (
 );
 
 CREATE TABLE IF NOT EXISTS Skuespiller (
-    skuespillerID INTEGER AUTOINCREMENT NOT NULL,
+    skuespillerID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     fornavn TEXT NOT NULL,
-    etternavn TEXT NOT NULL,
-    PRIMARY KEY (skuespillerID)
+    etternavn TEXT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS spillerRolle (
-    rolleID INTEGER AUTOINCREMENT NOT NULL,
+    rolleID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     skuespillerID INTEGER NOT NULL,
-    PRIMARY KEY (rolleID, skuespillerID),
     FOREIGN KEY (rolleID)
         REFERENCES Rolle (rolleID)
             ON UPDATE CASCADE,
@@ -88,18 +85,16 @@ CREATE TABLE IF NOT EXISTS spillerIAkt (
 );
 
 CREATE TABLE IF NOT EXISTS Omraade (
-    omraadeID INTEGER AUTOINCREMENT NOT NULL,
-    omraadenavn TEXT NOT NULL,
-    PRIMARY KEY (omraadeID)
+    omraadeID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    omraadenavn TEXT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Stol (
-    stolID INTEGER AUTOINCREMENT NOT NULL,
+    stolID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     stolnummer INTEGER NOT NULL,
     radnummer INTEGER NOT NULL,
     salnavn TEXT NOT NULL,
     omraadeID INTEGER NOT NULL,
-    PRIMARY KEY (stolID),
     FOREIGN KEY (salnavn)
         REFERENCES Teatersal (salnavn)
             ON UPDATE CASCADE,
@@ -109,10 +104,9 @@ CREATE TABLE IF NOT EXISTS Stol (
 );
 
 CREATE TABLE IF NOT EXISTS Forestilling (
-    forestillingID INTEGER AUTOINCREMENT NOT NULL,
+    forestillingID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     dato DATE NOT NULL,
     navnPaStykke TEXT NOT NULL,
-    PRIMARY KEY (forestillingID),
     FOREIGN KEY (navnPaStykke)
         REFERENCES Teaterstykke (navnPaStykke)
             ON UPDATE CASCADE
@@ -135,9 +129,8 @@ CREATE TABLE IF NOT EXISTS Kundeprofil (
 );
 
 CREATE TABLE IF NOT EXISTS Pris (
-    prisID INTEGER AUTOINCREMENT NOT NULL,
-    pris FLOAT NOT NULL,
-    PRIMARY KEY (prisID)
+    prisID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    pris FLOAT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS KostnadForGruppe (
@@ -165,22 +158,20 @@ CREATE TABLE IF NOT EXISTS KostnadForForestilling (
 );
 
 CREATE TABLE IF NOT EXISTS BillettKjøp (
-    kjøpsID INTEGER AUTOINCREMENT NOT NULL,
+    kjøpsID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     dato DATE NOT NULL,
     tid TIME NOT NULL,
     mobilnummer INTEGER NOT NULL,
-    PRIMARY KEY (kjøpsID),
     FOREIGN KEY (mobilnummer)
         REFERENCES Kundeprofil (mobilnummer)
             ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS Billett (
-    billettID INTEGER AUTOINCREMENT NOT NULL,
+    billettID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     stolID INTEGER NOT NULL,
     forestillingID INTEGER NOT NULL,
     kjøpsID INTEGER NOT NULL,
-    PRIMARY KEY (billettID),
     FOREIGN KEY (forestillingID)
         REFERENCES Forestilling (forestillingID)
             ON UPDATE CASCADE,
