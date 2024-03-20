@@ -32,6 +32,16 @@ def insert(table, columns, values):
     con.commit()
     con.close()
 
+def insert_return_rowID(table, columns, values):
+    con = sqlite3.connect('./database/database.db')
+    cursor = con.cursor()
+    placeholders = ', '.join(['?' for _ in columns])
+    cursor.execute(f'INSERT INTO {table} ({", ".join(columns)}) VALUES ({placeholders})', values)
+    rowID = cursor.lastrowid
+    con.commit()
+    con.close()
+    return rowID
+
 # insert('Teatersal', ['salnavn'], ['Gamle scenek'])
 
 # insert('Rolle', ('navn', 'navnPaStykke'), ('verdi1', 'verdi2'))
