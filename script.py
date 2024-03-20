@@ -23,9 +23,13 @@ def query(table, select_statement="*", where_statement=None, group_by=None, havi
         sql_query += f" HAVING {having}"
     if order_by:
         sql_query += f" ORDER BY {order_by}"
-    result = cursor.execute(sql_query).fetchall()
+    result = cursor.execute(sql_query)
+    result = result.fetchall()
     con.close()
     return result
+
+# for val in query('Stol'):
+#     print(val)
 
 '''
 Setter inn data i databasen.
@@ -45,5 +49,3 @@ def insert(table, values):
     cursor.execute(f'INSERT INTO {table} VALUES ({", ".join(formatted_values)})')
     con.commit()
     con.close()
-
-insert('Pris', [200])

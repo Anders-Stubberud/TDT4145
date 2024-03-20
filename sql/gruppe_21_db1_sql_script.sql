@@ -117,8 +117,11 @@ CREATE TABLE IF NOT EXISTS Kundegruppe (
 
 CREATE TABLE IF NOT EXISTS Kundeprofil (
     mobilnummer INTEGER PRIMARY KEY,
-    navn TEXT NOT NULL,
-    adresse TEXT NOT NULL,
+    fornavn TEXT NOT NULL,
+    etternavn TEXT NOT NULL,
+    postnummer TEXT NOT NULL,
+    gatenavn TEXT NOT NULL,
+    gatenummer INTEGER NOT NULL,
     gruppenavn TEXT NOT NULL,
     FOREIGN KEY (gruppenavn)
         REFERENCES Kundegruppe (gruppenavn)
@@ -152,8 +155,8 @@ CREATE TABLE IF NOT EXISTS KostnadForForestilling (
             ON UPDATE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS BillettKjøp (
-    kjøpsID INTEGER PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS BillettKjop (
+    kjopsID INTEGER PRIMARY KEY,
     dato DATE NOT NULL,
     tid TIME NOT NULL,
     mobilnummer INTEGER NOT NULL,
@@ -199,6 +202,17 @@ CREATE TABLE IF NOT EXISTS MedvirkendePerson (
     epostadresse TEXT UNIQUE,
     navn TEXT NOT NULL,
     ansattstatus TEXT
+);
+
+CREATE TABLE IF NOT EXISTS bestiltStol (
+    billettID INTEGER PRIMARY KEY,
+    stolID INTEGER NOT NULL,
+    FOREIGN KEY (stolID)
+        REFERENCES Stol (stolID)
+            ON UPDATE CASCADE,
+    FOREIGN KEY (billettID)
+        REFERENCES Billett (billettID)
+            ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS utførerOppgave (

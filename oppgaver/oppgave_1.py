@@ -3,11 +3,13 @@ from utils import insert
 
 # stol_id_counter = 1  # Initialize a counter for stol_id
 
-def insert_stoler_Hovedscenen(sal, rows, seats):
-
-    for row in range(1, rows + 1):
-        for seat in range(1, seats + 1):
-            insert('Stol', ('stolnummer', 'radnummer', 'salnavn', 'omraadeID'), (seat, row, sal, 0))
+def insert_stoler_Hovedscenen():
+    row = 1
+    for seat in range(1, 504):
+        if (466 < seat and seat < 471) or (494 < seat < 499):
+            continue
+        insert('Stol', ('stolnummer', 'radnummer', 'salnavn', 'omraadeID'), (seat, row, 'Hovedscenen', 0))
+        row = row + 1 if seat  % 28 == 0 else row
 
 def insert_stoler_Parkett(sal, rows_parkett):
     for row in range(1, rows_parkett + 1):
@@ -15,6 +17,8 @@ def insert_stoler_Parkett(sal, rows_parkett):
             seats = 18
         elif row == 2:
             seats = 16
+        elif row == 10:
+            seats = 14
         else:
             seats = 17
         for seat in range(1, seats + 1):
@@ -24,8 +28,10 @@ def insert_stoler_Balkong(sal, rows_balkong):
     for row in range(1, rows_balkong + 1):
         if row == 1:
             seats = 28
-        elif row in [2, 3]:
+        elif row == 2:
             seats = 27
+        elif row == 3:
+            seats = 22
         else:
             seats = 17
         for seat in range(1, seats + 1):
@@ -82,6 +88,11 @@ def insert_saler():
     insert('Teatersal', ['salnavn'], ['Hovedscenen'])
     insert('Teatersal', ['salnavn'], ['Gamle scene'])
 
+def insert_område():
+    områder = ['Parkett', 'Balkong', 'Galleri']
+    for område in områder:
+        insert('Omraade', ['omraadenavn'], [område])
+
 def insert_forestillinger():
     datoer_kongsemnene = [
         '2024-02-01', '2024-02-02', '2024-02-03', '2024-02-05', '2024-02-06' # YYYY-MM-DD
@@ -123,7 +134,7 @@ def insert_medvirkende_person():
     for epost, navn, ansattStatus in medvirkende_personer_kongsemnene:
         insert('MedvirkendePerson', ('epostadresse', 'navn', 'ansattStatus'), (epost, navn, ansattStatus))
 
-insert_stoler_Hovedscenen('Hovedscenen', 16, 28)
+insert_stoler_Hovedscenen()
 insert_stoler_Parkett('Gamle scene', 10)
 insert_stoler_Balkong('Gamle scene', 4)
 insert_stoler_Galleri('Gamle scene', 3)
