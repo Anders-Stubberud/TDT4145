@@ -5,7 +5,7 @@ from utils import insert
 
 def insert_stoler_Hovedscenen():
     row = 1
-    for seat in range(1, 504):
+    for seat in range(1, 505):
         if (466 < seat and seat < 471) or (494 < seat < 499):
             continue
         insert('Stol', ('stolnummer', 'radnummer', 'salnavn', 'omraadeID'), (seat, row, 'Hovedscenen', 0))
@@ -52,6 +52,7 @@ def insert_teaterstykker():
     teaterstykke_data = [('Kongsemnene', 'Hovedscenen', '19:00'), ('Størst av alt er kjærligheten', 'Gamle scene', '18:30')]
     for stykke, sal, tid in teaterstykke_data:
         insert('Teaterstykke', ('navnPaStykke', 'salnavn', 'klokkeslett'), (stykke, sal, tid))
+
 
 def insert_roller():
     rolle_data_kongsemnene = [
