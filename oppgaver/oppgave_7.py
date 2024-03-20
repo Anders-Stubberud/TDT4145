@@ -7,6 +7,7 @@ hvilket skuespill det skjedde.
 '''
 
 def spiller_i_samme_akt(fornavn, etternavn):
+
     stykke_fornavn_og_etternavn_for_de_som_har_spilt_i_samme_stykke =query(f'''
         SELECT navnPaStykke, fornavn, etternavn
         FROM (
@@ -18,3 +19,7 @@ def spiller_i_samme_akt(fornavn, etternavn):
         NATURAL JOIN SpillerIAkt NATURAL JOIN Skuespiller
         WHERE NOT (fornavn = "{fornavn}" AND etternavn = "{etternavn}")
     ''')
+
+    for navn_på_stykke, fornavn_medskuespiller, etternavn_medskuespiller in stykke_fornavn_og_etternavn_for_de_som_har_spilt_i_samme_stykke:
+        print(f'{fornavn} {etternavn} spilte i samme akt som {fornavn_medskuespiller} {etternavn_medskuespiller} i {navn_på_stykke}')
+
