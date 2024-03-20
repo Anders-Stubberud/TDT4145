@@ -134,6 +134,30 @@ def insert_medvirkende_person():
     for epost, navn, ansattStatus in medvirkende_personer_kongsemnene:
         insert('MedvirkendePerson', ('epostadresse', 'navn', 'ansattStatus'), (epost, navn, ansattStatus))
 
+def insert_priser():
+    priser_data = [
+        ('Kongsemnene', 'Ordinær', 450),
+        ('Kongsemnene', 'Honnør', 380),
+        ('Kongsemnene', 'Student', 280),
+        ('Kongsemnene', 'Gruppe 10', 420),
+        ('Kongsemnene', 'Gruppe honnør 10', 360),
+        ('Størst av alt er kjærligheten', 'Ordinær', 350),
+        ('Størst av alt er kjærligheten', 'Honnør', 300),
+        ('Størst av alt er kjærligheten', 'Student', 220),
+        ('Størst av alt er kjærligheten', 'Barn', 220),
+        ('Størst av alt er kjærligheten', 'Gruppe 10', 320),
+        ('Størst av alt er kjærligheten', 'Gruppe honnør 10', 270)
+    ]
+    for stykke, gruppe, pris in priser_data:
+        try:
+            # Insert the price
+            pris_id = insert('Pris', ('pris',), (pris,))
+            # Check if the price insertion was successful
+            if pris_id is None:
+                print(f"Failed to insert price data for '{stykke}' and '{gruppe}'. pris_id is None.")
+        except Exception as e:
+            print(f"Failed to insert price data for '{stykke}' and '{gruppe}': {e}")
+
 insert_stoler_Hovedscenen()
 insert_stoler_Parkett('Gamle scene', 10)
 insert_stoler_Balkong('Gamle scene', 4)
@@ -146,3 +170,4 @@ insert_forestillinger()
 insert_akter()
 insert_oppgaver()
 insert_medvirkende_person()
+insert_priser()

@@ -1,4 +1,5 @@
 import sqlite3
+from utils import query, insert
 
 def kjop_billetter():
     conn = sqlite3.connect('./database/database.db')
