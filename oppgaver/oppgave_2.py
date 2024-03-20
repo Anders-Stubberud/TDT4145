@@ -16,7 +16,7 @@ def insert_solgte_stoler_hovedscenen():
     stoler_fra_nummer_en = ''.join([rad.strip() for rad in lines[lines.index('Parkett\n') + 1:]][::-1])
     solgte_stoler = [stolindex + 1 for stolindex, solgt in enumerate(stoler_fra_nummer_en) if solgt == '1']
     stol_IDer_solgte_stoler_hovedscenen = query(f'SELECT stolnummer FROM Stol WHERE (stolnummer IN ({", ".join(map(str, solgte_stoler))}) AND salnavn = "Hovedscenen")')
-    print(stol_IDer_solgte_stoler_hovedscenen[:10][2][0])
+    
 
 insert_solgte_stoler_hovedscenen()
 
