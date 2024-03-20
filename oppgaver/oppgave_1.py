@@ -153,12 +153,10 @@ def insert_priser():
             # Insert the price
             pris_id = insert('Pris', ('pris',), (pris,))
             # Check if the price insertion was successful
-            if pris_id is None:
-                print(f"Failed to insert price data for '{stykke}' and '{gruppe}'. pris_id is None.")
         except Exception as e:
-            print(f"Failed to insert price data for '{stykke}' and '{gruppe}': {e}")
+            print(f"Error occurred: {e}")
 
-insert_stoler_Hovedscenen()
+            
 insert_stoler_Parkett('Gamle scene', 10)
 insert_stoler_Balkong('Gamle scene', 4)
 insert_stoler_Galleri('Gamle scene', 3)
