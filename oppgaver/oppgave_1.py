@@ -5,10 +5,10 @@ from utils import insert
 
 def insert_stoler_Hovedscenen():
     row = 1
-    for seat in range(1, 505):
+    for seat in range(1, 504):
         if (466 < seat and seat < 471) or (494 < seat < 499):
             continue
-        insert('Stol', ('stolnummer', 'radnummer', 'salnavn', 'omraadeID'), (seat, row, 'Hovedscenen', 1))
+        insert('Stol', ('stolnummer', 'radnummer', 'salnavn', 'omraadeID'), (seat, row, 'Hovedscenen', 0))
         row = row + 1 if seat  % 28 == 0 else row
 
 def insert_stoler_Parkett(sal, rows_parkett):
@@ -22,7 +22,7 @@ def insert_stoler_Parkett(sal, rows_parkett):
         else:
             seats = 17
         for seat in range(1, seats + 1):
-            insert('Stol', ('stolnummer', 'radnummer', 'salnavn', 'omraadeID'), (seat, row, sal, 1))
+            insert('Stol', ('stolnummer', 'radnummer', 'salnavn', 'omraadeID'), (seat, row, sal + ': Parkett', 1))
 
 def insert_stoler_Balkong(sal, rows_balkong):
     for row in range(1, rows_balkong + 1):
@@ -35,7 +35,7 @@ def insert_stoler_Balkong(sal, rows_balkong):
         else:
             seats = 17
         for seat in range(1, seats + 1):
-            insert('Stol', ('stolnummer', 'radnummer', 'salnavn', 'omraadeID'), (seat, row, sal, 2))
+            insert('Stol', ('stolnummer', 'radnummer', 'salnavn', 'omraadeID'), (seat, row, sal + ': Balkong', 2))
 
 def insert_stoler_Galleri(sal, rows_galleri):
     for row in range(1, rows_galleri + 1):
@@ -46,13 +46,12 @@ def insert_stoler_Galleri(sal, rows_galleri):
         else:
             seats = 17
         for seat in range(1, seats + 1):
-            insert('Stol', ('stolnummer', 'radnummer', 'salnavn', 'omraadeID'), (seat, row, sal, 3))
+            insert('Stol', ('stolnummer', 'radnummer', 'salnavn', 'omraadeID'), (seat, row, sal + ': Galleri', 3))
 
 def insert_teaterstykker():
     teaterstykke_data = [('Kongsemnene', 'Hovedscenen', '19:00'), ('Størst av alt er kjærligheten', 'Gamle scene', '18:30')]
     for stykke, sal, tid in teaterstykke_data:
         insert('Teaterstykke', ('navnPaStykke', 'salnavn', 'klokkeslett'), (stykke, sal, tid))
-
 
 def insert_roller():
     rolle_data_kongsemnene = [
@@ -135,16 +134,38 @@ def insert_medvirkende_person():
     for epost, navn, ansattStatus in medvirkende_personer_kongsemnene:
         insert('MedvirkendePerson', ('epostadresse', 'navn', 'ansattStatus'), (epost, navn, ansattStatus))
 
-insert_stoler_Hovedscenen()
+def insert_priser():
+    priser_data = [
+        ('Kongsemnene', 'Ordinær', 450),
+        ('Kongsemnene', 'Honnør', 380),
+        ('Kongsemnene', 'Student', 280),
+        ('Kongsemnene', 'Gruppe 10', 420),
+        ('Kongsemnene', 'Gruppe honnør 10', 360),
+        ('Størst av alt er kjærligheten', 'Ordinær', 350),
+        ('Størst av alt er kjærligheten', 'Honnør', 300),
+        ('Størst av alt er kjærligheten', 'Student', 220),
+        ('Størst av alt er kjærligheten', 'Barn', 220),
+        ('Størst av alt er kjærligheten', 'Gruppe 10', 320),
+        ('Størst av alt er kjærligheten', 'Gruppe honnør 10', 270)
+    ]
+    for stykke, gruppe, pris in priser_data:
+        try:
+            # Insert the price
+            pris_id = insert('Pris', ('pris',), (pris,))
+            # Check if the price insertion was successful
+        except Exception as e:
+            print(f"Error occurred: {e}")
+
+            
 insert_stoler_Parkett('Gamle scene', 10)
 insert_stoler_Balkong('Gamle scene', 4)
 insert_stoler_Galleri('Gamle scene', 3)
 insert_teaterstykker()
 insert_roller()
-insert_område()
 insert_skuespiller()
 insert_saler()
 insert_forestillinger()
 insert_akter()
 insert_oppgaver()
 insert_medvirkende_person()
+insert_priser()
