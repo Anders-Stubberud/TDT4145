@@ -2,7 +2,7 @@ import sqlite3
 import os
 
 # Connect to the SQLite database
-conn = sqlite3.connect('../database/database.db')
+conn = sqlite3.connect('database/database.db')
 cursor = conn.cursor()
 
 # Function to insert data into the database
