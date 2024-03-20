@@ -1,59 +1,91 @@
 import sqlite3
-from utils import query, insert  # Removed unnecessary import statement
-# from utils import skuespillereIStykkerQuery, forestillingerRangertQuery, forestillingerPaaDatoQuery
+import os
 
-con = sqlite3.connect("teater.db")
-c = con.cursor()
+# Connect to the SQLite database
+conn = sqlite3.connect('../database/database.db')
+cursor = conn.cursor()
 
-def kjop_ni_billetter(forestilling_dato="2024-02-03 18:30:00", stykkeID=2, kundegruppeID="O", antall_billetter=9):
-    # Identifiser ledige stoler ved å sjekke mot de som allerede er solgt
-    c.execute("""
-        SELECT Stol.RadNr, Stol.Omrade, COUNT(Stol.StolNr) AS LedigeSeter
-        FROM Stol
-        LEFT JOIN Billett ON Stol.StolNr = Billett.StolNr AND Stol.RadNr = Billett.RadNr AND Stol.Omrade = Billett.Omrade
-        LEFT JOIN BilettKjop ON Billett.ReferanseNr = BilettKjop.ReferanseNr
-        LEFT JOIN Forestilling ON BilettKjop.Tidspunkt = Forestilling.Tidspunkt
-        WHERE Forestilling.Tidspunkt IS NULL OR Forestilling.Tidspunkt != ?
-        AND NOT EXISTS (SELECT * FROM Billett WHERE Billett.RadNr = Stol.RadNr AND Billett.StolNr = Stol.StolNr AND Billett.Omrade = Stol.Omrade AND Billett.SalID = Stol.SalID)
-        GROUP BY Stol.RadNr, Stol.Omrade
-        HAVING COUNT(Stol.StolNr) - COUNT(Billett.StolNr) >= ?;
-    """, (forestilling_dato, antall_billetter))
+# Function to insert data into the database
+def insert(table, columns, values):
+    columns_str = ', '.join(columns)
+    placeholders = ', '.join(['?' for _ in values])
+    query = f"INSERT INTO {table} ({columns_str}) VALUES ({placeholders})"
+    cursor.execute(query, values)
+    conn.commit()
 
-    ledige_stoler = c.fetchall()
-    print(ledige_stoler)
+# Function to insert data and return the row ID
+def insert_return_rowID(table, columns, values):
+    columns_str = ', '.join(columns)
+    placeholders = ', '.join(['?' for _ in values])
+    query = f"INSERT INTO {table} ({columns_str}) VALUES ({placeholders})"
+    cursor.execute(query, values)
+    conn.commit()
+    return cursor.lastrowid
 
-    # Gruppere ledige stoler etter RadNr og finne en rad med minst 9 ledige stoler
-    rad_med_ledige_stoler = {}
-    for stol in ledige_stoler:
-        rad_nr = stol[1]
-        rad_med_ledige_stoler.setdefault(rad_nr, []).append(stol)
+# Function to execute SQL queries
+def query(sql):
+    cursor.execute(sql)
+    return cursor.fetchall()
 
-    rad_for_kjop = None
-    for rad_nr, stoler in rad_med_ledige_stoler.items():
-        if len(stoler) >= antall_billetter:
-            rad_for_kjop = rad_nr
-            break
+# Function to insert sold seats for Hovedscenen
+def insert_solgte_stoler_hovedscenen():
+    # Read sold seats data from file
+    with open(os.path.join(os.path.dirname(__file__), '../filer/hovedscenen.txt'), 'r') as file:
+        lines = file.readlines()
+    # Extract sold seats
+    sold_seats = ''.join([line.strip() for line in lines[lines.index('Parkett\n') + 1:]])[::-1]
+    # Get the performance ID
+    performance_id = query("SELECT forestillingID FROM (Teaterstykke NATURAL JOIN Forestilling) WHERE dato = '2024-02-03' AND salnavn = 'Hovedscenen'")[0][0]
+    # Get seat IDs for sold seats
+    sold_seat_ids = query(f"SELECT stolID FROM Stol WHERE stolnummer IN ({', '.join([str(i+1) for i, seat in enumerate(sold_seats) if seat == '1'])}) AND salnavn = 'Hovedscenen'")
+    # Get purchase ID
+    purchase_id = insert_return_rowID('BillettKjop', ('dato', 'tid', 'mobilnummer'), ('2024-01-01', '12:00', 12345678))
+    # Insert sold seats
+    for seat_id in sold_seat_ids:
+        insert('Billett', ('stolID', 'forestillingID', 'kjopsID'), (seat_id[0], performance_id, purchase_id))
 
-    if not rad_for_kjop:
-        print("Fant ikke en rad med nok ledige stoler.")
-        return
+# Function to purchase tickets for Gamle scene
+def purchase_tickets_gamle_scene():
+    # SQL query to find available seats on the same row for Størst av alt er kjærligheten
+    available_seats_query = """
+        SELECT stolnummer
+        FROM Billett AS b
+        JOIN Stol AS s ON b.stolID = s.stolID
+        JOIN Forestilling AS f ON b.forestillingID = f.forestillingID
+        WHERE f.dato = '2024-02-03' AND f.tid = '18:30' AND f.navnPaStykke = 'Størst av alt er kjærligheten'
+        GROUP BY s.radnummer
+        HAVING COUNT(*) >= 9
+    """
 
-    # Kjøpe billetter for stolene på valgte rad
-    valgte_stoler = rad_med_ledige_stoler[rad_for_kjop][:antall_billetter]
-    for stol in valgte_stoler:
-        referanse_nr = f"{forestilling_dato.replace('-', '')}{stykkeID}{stol[1]}{stol[0]}"
-        c.execute('INSERT INTO BilettKjop (ReferanseNr, Tidspunkt, KundeNr) VALUES (?, ?, ?)',
-                  (referanse_nr, forestilling_dato, 1))
-        c.execute('INSERT INTO Billett (ReferanseNr, StolNr, RadNr, Omrade, SalID) VALUES (?, ?, ?, ?, ?)',
-                  (referanse_nr, stol[0], stol[1], stol[2], stol[3]))
+    # SQL query to calculate total cost
+    total_cost_query = """
+        SELECT COUNT(*) * pris AS total_cost
+        FROM (
+            SELECT stolnummer
+            FROM Billett AS b
+            JOIN Stol AS s ON b.stolID = s.stolID
+            JOIN Forestilling AS f ON b.forestillingID = f.forestillingID
+            WHERE f.dato = '2024-02-03' AND f.tid = '18:30' AND f.navnPaStykke = 'Størst av alt er kjærligheten'
+            GROUP BY s.radnummer
+            HAVING COUNT(*) >= 9
+        ) AS available_seats
+        JOIN Pris ON 1 = 1
+    """
 
-    # Beregne totalprisen for billettene
-    c.execute('SELECT Pris FROM TypeBillett WHERE KundegruppeID = ? AND StykkeID = ?', (kundegruppeID, stykkeID))
-    pris_per_billett = c.fetchone()[0]
-    totalpris = pris_per_billett * antall_billetter
+    # Execute the SQL queries
+    cursor.execute(available_seats_query)
+    available_seats = cursor.fetchall()
 
-    con.commit()
-    print(f"Kjøpte {antall_billetter} billetter til 'Størst av alt er kjærligheten' den {forestilling_dato}. Totalpris: {totalpris} NOK.")
+    cursor.execute(total_cost_query)
+    total_cost = cursor.fetchone()[0]
 
-if __name__ == '__main__':
-    kjop_ni_billetter()
+    # Print the result
+    print("Available seats:", available_seats)
+    print("Total cost:", total_cost)
+
+# Call functions to insert sold seats for Hovedscenen and purchase tickets for Gamle scene
+insert_solgte_stoler_hovedscenen()
+purchase_tickets_gamle_scene()
+
+# Close the connection
+conn.close()
