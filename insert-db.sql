@@ -7,8 +7,26 @@ VALUES
 ('Kongsemnene', 'Hovedscenen', '19:00'),
 ('Størst av alt er kjærligheten', 'Gamle scene', '18:30');
 
+
+
+
+
+
+
+
+
+
 INSERT INTO Skuespiller(fornavn, etternavn)
 VALUES 
+--størst av alt er kjærligheten
+('Sunniva Du Mond', 'Nordal'),
+('Jo', 'Saberniak'),
+('Marte M.', 'Steinholt'),
+('Tor Ivar', 'Hagen'),
+('Trond-Ove', 'Skrødal'),
+('Natalie Grøndahl', 'Tangen'),
+('Åsmund', 'Flaten'),
+--Kongsemnene
 ('Arturo', 'Scotti'), -- Haakon Haakonssønn
 ('Ingunn Beate', 'Strige Øyen'), -- Inga fra Vartejg
 ('Hans Petter', 'Nilsen'), -- Skule jarl
@@ -35,19 +53,29 @@ INSERT INTO Akt(navnPaStykke, nummer, navn) VALUES
 ('Kongsemnene', 5, 'Akt 5');
 
 INSERT INTO SpillerRolle(skuespillerID, rolleID) VALUES
-(1, 8), -- Arturo Scotti as Haakon Haakonssønn
-(2, 9), -- Ingunn Beate Strige Øyen as Inga fra Vartejg
-(3, 10), -- Hans Petter Nilsen as Skule jarl
-(4, 11), -- Madeleine Brandtzæg Nilsen as Fru Ragnhild
-(5, 12), -- Synnøve Fossum Eriksen as Margrete
-(6, 13), -- Emma Caroline Deichmann as Sigrid
-(7, 14), -- Thomas Jensen Takyi as Biskop Nikolas
-(8, 15), -- Per Bogstad Gulliksen as Gregorius Jonssønn
-(9, 16), -- Isak Holmen Sørensen as Paal Flida
-(10, 17), -- Fabian Heidelberg Lunde as Trønder
-(11, 18), -- Emil Olafsson as Baard Bratte
-(12, 19), -- Snorre Ryen Tøndel as Jatgeir Skald / Dagfinn Bonde
-(13, 20); -- Peter
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 5),
+(6, 6),
+(7, 7),
+(8, 8), -- Arturo Scotti as Haakon Haakonssønn
+(9, 9), -- Ingunn Beate Strige Øyen as Inga fra Vartejg
+(10, 10), -- Hans Petter Nilsen as Skule jarl
+(11, 11), -- Madeleine Brandtzæg Nilsen as Fru Ragnhild
+(12, 12), -- Synnøve Fossum Eriksen as Margrete
+(13, 13), -- Emma Caroline Deichmann as Sigrid
+(13, 14), -- Emma Caroline Deichmann as Sigrid
+(14, 15),  -- thomas
+(15, 16), -- per bogstad
+(16, 17), -- isak holmen
+(16, 18), -- isak holmen
+(17, 18), -- fabian
+(17, 19), -- fabian
+(18, 20), -- emil
+(18, 21), -- emil
+(19, 22); -- snorre
 
 INSERT INTO SpillerIAkt(skuespillerID, navnPaStykke, nummer) VALUES
 (1, 'Kongsemnene', 1), -- Arturo Scotti in Act 1 of Kongsemnene
@@ -74,11 +102,12 @@ VALUES
 ('Natalie Grøndahl Tangen', 'Størst av alt er kjærligheten'),
 ('Åsmund Flaten', 'Størst av alt er kjærligheten'),
 ('Haakon Haakonssønn', 'Kongsemnene'),
-('Inga fra Vartejg', 'Kongsemnene'),
+('Inga fra Vartejg (Haakons mor)', 'Kongsemnene'),
 ('Skule jarl', 'Kongsemnene'),
-('Fru Ragnhild', 'Kongsemnene'),
-('Margrete', 'Kongsemnene'),
-('Sigrid', 'Kongsemnene'),
+('Fru Ragnhild (Skules hustru)', 'Kongsemnene'),
+('Margrete (Skules datter)', 'Kongsemnene'),
+('Sigrid (Skules søster)', 'Kongsemnene'),
+('Ingebjørg', 'Kongsemnene'),
 ('Biskop Nikolas', 'Kongsemnene'),
 ('Gregorius Jonssønn', 'Kongsemnene'),
 ('Paal Flida', 'Kongsemnene'),
@@ -86,30 +115,30 @@ VALUES
 ('Baard Bratte', 'Kongsemnene'),
 ('Jatgeir Skald', 'Kongsemnene'),
 ('Dagfinn Bonde', 'Kongsemnene'),
-('Peter', 'Kongsemnene');
+('Peter (prest og Ingebjørgs sønn)', 'Kongsemnene');
 
-INSERT INTO Rolle(navn, navnPaStykke) VALUES 
-('Sunniva Du Mond Nordal', 'Størst av alt er kjærligheten'),
-('Jo Saberniak', 'Størst av alt er kjærligheten'),
-('Marte M. Steinholt', 'Størst av alt er kjærligheten'),
-('Tor Ivar Hagen', 'Størst av alt er kjærligheten'),
-('Trond-Ove Skrødal', 'Størst av alt er kjærligheten'),
-('Natalie Grøndahl Tangen', 'Størst av alt er kjærligheten'),
-('Åsmund Flaten', 'Størst av alt er kjærligheten'),
-('Haakon Haakonssønn', 'Kongsemnene'),
-('Inga fra Vartejg', 'Kongsemnene'),
-('Skule jarl', 'Kongsemnene'),
-('Fru Ragnhild', 'Kongsemnene'),
-('Margrete', 'Kongsemnene'),
-('Sigrid', 'Kongsemnene'),
-('Biskop Nikolas', 'Kongsemnene'),
-('Gregorius Jonssønn', 'Kongsemnene'),
-('Paal Flida', 'Kongsemnene'),
-('Trønder', 'Kongsemnene'),
-('Baard Bratte', 'Kongsemnene'),
-('Jatgeir Skald', 'Kongsemnene'),
-('Dagfinn Bonde', 'Kongsemnene'),
-('Peter', 'Kongsemnene');
+-- INSERT INTO Rolle(navn, navnPaStykke) VALUES 
+-- ('Sunniva Du Mond Nordal', 'Størst av alt er kjærligheten'),
+-- ('Jo Saberniak', 'Størst av alt er kjærligheten'),
+-- ('Marte M. Steinholt', 'Størst av alt er kjærligheten'),
+-- ('Tor Ivar Hagen', 'Størst av alt er kjærligheten'),
+-- ('Trond-Ove Skrødal', 'Størst av alt er kjærligheten'),
+-- ('Natalie Grøndahl Tangen', 'Størst av alt er kjærligheten'),
+-- ('Åsmund Flaten', 'Størst av alt er kjærligheten'),
+-- ('Haakon Haakonssønn', 'Kongsemnene'),
+-- ('Inga fra Vartejg', 'Kongsemnene'),
+-- ('Skule jarl', 'Kongsemnene'),
+-- ('Fru Ragnhild', 'Kongsemnene'),
+-- ('Margrete', 'Kongsemnene'),
+-- ('Sigrid', 'Kongsemnene'),
+-- ('Biskop Nikolas', 'Kongsemnene'),
+-- ('Gregorius Jonssønn', 'Kongsemnene'),
+-- ('Paal Flida', 'Kongsemnene'),
+-- ('Trønder', 'Kongsemnene'),
+-- ('Baard Bratte', 'Kongsemnene'),
+-- ('Jatgeir Skald', 'Kongsemnene'),
+-- ('Dagfinn Bonde', 'Kongsemnene'),
+-- ('Peter', 'Kongsemnene');
 
 INSERT INTO Forestilling(dato, tid, navnPaStykke) VALUES 
 ('2024-02-01', '19:00', 'Kongsemnene'),

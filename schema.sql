@@ -59,8 +59,9 @@ CREATE TABLE IF NOT EXISTS Skuespiller (
 );
 
 CREATE TABLE IF NOT EXISTS spillerRolle (
-    rolleID INTEGER PRIMARY KEY,
+    rolleID INTEGER NOT NULL,
     skuespillerID INTEGER NOT NULL,
+    PRIMARY KEY (rolleID, skuespillerID)
     FOREIGN KEY (rolleID)
         REFERENCES Rolle (rolleID)
             ON UPDATE CASCADE,
