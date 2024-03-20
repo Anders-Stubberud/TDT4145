@@ -169,12 +169,12 @@ CREATE TABLE IF NOT EXISTS Billett (
     billettID INTEGER PRIMARY KEY,
     stolID INTEGER NOT NULL,
     forestillingID INTEGER NOT NULL,
-    kjøpsID INTEGER NOT NULL,
+    kjopsID INTEGER NOT NULL,
     FOREIGN KEY (forestillingID)
         REFERENCES Forestilling (forestillingID)
             ON UPDATE CASCADE,
-    FOREIGN KEY (kjøpsID)
-        REFERENCES BillettKjøp (kjøpsID)
+    FOREIGN KEY (kjopsID)
+        REFERENCES BillettKjop (kjopsID)
             ON UPDATE CASCADE,
     FOREIGN KEY (stolID)
         REFERENCES Stol (stolID)
@@ -215,7 +215,7 @@ CREATE TABLE IF NOT EXISTS bestiltStol (
             ON UPDATE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS utførerOppgave (
+CREATE TABLE IF NOT EXISTS utforerOppgave (
     oppgavetittel TEXT NOT NULL,
     personIdentifikator INTEGER NOT NULL,
     PRIMARY KEY (oppgavetittel, personIdentifikator),
