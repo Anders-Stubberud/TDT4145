@@ -8,7 +8,7 @@ def insert_stoler_Hovedscenen():
     for seat in range(1, 505):
         if (466 < seat and seat < 471) or (494 < seat < 499):
             continue
-        insert('Stol', ('stolnummer', 'radnummer', 'salnavn', 'omraadeID'), (seat, row, 'Hovedscenen', 0))
+        insert('Stol', ('stolnummer', 'radnummer', 'salnavn', 'omraadeID'), (seat, row, 'Hovedscenen', 1))
         row = row + 1 if seat  % 28 == 0 else row
 
 def insert_stoler_Parkett(sal, rows_parkett):
@@ -22,7 +22,7 @@ def insert_stoler_Parkett(sal, rows_parkett):
         else:
             seats = 17
         for seat in range(1, seats + 1):
-            insert('Stol', ('stolnummer', 'radnummer', 'salnavn', 'omraadeID'), (seat, row, sal + ': Parkett', 1))
+            insert('Stol', ('stolnummer', 'radnummer', 'salnavn', 'omraadeID'), (seat, row, sal, 1))
 
 def insert_stoler_Balkong(sal, rows_balkong):
     for row in range(1, rows_balkong + 1):
@@ -35,7 +35,7 @@ def insert_stoler_Balkong(sal, rows_balkong):
         else:
             seats = 17
         for seat in range(1, seats + 1):
-            insert('Stol', ('stolnummer', 'radnummer', 'salnavn', 'omraadeID'), (seat, row, sal + ': Balkong', 2))
+            insert('Stol', ('stolnummer', 'radnummer', 'salnavn', 'omraadeID'), (seat, row, sal, 2))
 
 def insert_stoler_Galleri(sal, rows_galleri):
     for row in range(1, rows_galleri + 1):
@@ -46,7 +46,7 @@ def insert_stoler_Galleri(sal, rows_galleri):
         else:
             seats = 17
         for seat in range(1, seats + 1):
-            insert('Stol', ('stolnummer', 'radnummer', 'salnavn', 'omraadeID'), (seat, row, sal + ': Galleri', 3))
+            insert('Stol', ('stolnummer', 'radnummer', 'salnavn', 'omraadeID'), (seat, row, sal, 3))
 
 def insert_teaterstykker():
     teaterstykke_data = [('Kongsemnene', 'Hovedscenen', '19:00'), ('Størst av alt er kjærligheten', 'Gamle scene', '18:30')]
@@ -141,6 +141,7 @@ insert_stoler_Balkong('Gamle scene', 4)
 insert_stoler_Galleri('Gamle scene', 3)
 insert_teaterstykker()
 insert_roller()
+insert_område()
 insert_skuespiller()
 insert_saler()
 insert_forestillinger()
