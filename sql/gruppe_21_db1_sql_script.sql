@@ -157,8 +157,8 @@ CREATE TABLE IF NOT EXISTS KostnadForForestilling (
             ON UPDATE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS BillettKjøp (
-    kjøpsID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+CREATE TABLE IF NOT EXISTS BillettKjop (
+    kjopsID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     dato DATE NOT NULL,
     tid TIME NOT NULL,
     mobilnummer INTEGER NOT NULL,
@@ -171,12 +171,12 @@ CREATE TABLE IF NOT EXISTS Billett (
     billettID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     stolID INTEGER NOT NULL,
     forestillingID INTEGER NOT NULL,
-    kjøpsID INTEGER NOT NULL,
+    kjopsID INTEGER NOT NULL,
     FOREIGN KEY (forestillingID)
         REFERENCES Forestilling (forestillingID)
             ON UPDATE CASCADE,
-    FOREIGN KEY (kjøpsID)
-        REFERENCES BillettKjøp (kjøpsID)
+    FOREIGN KEY (kjopsID)
+        REFERENCES BillettKjop (kjopsID)
             ON UPDATE CASCADE,
     FOREIGN KEY (stolID)
         REFERENCES Stol (stolID)
@@ -208,7 +208,7 @@ CREATE TABLE IF NOT EXISTS MedvirkendePerson (
     PRIMARY KEY (personIdentifikator)
 );
 
-CREATE TABLE IF NOT EXISTS utførerOppgave (
+CREATE TABLE IF NOT EXISTS utforerOppgave (
     oppgavetittel TEXT NOT NULL,
     personIdentifikator INTEGER NOT NULL,
     PRIMARY KEY (oppgavetittel, personIdentifikator),
