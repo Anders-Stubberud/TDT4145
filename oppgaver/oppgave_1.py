@@ -1,44 +1,15 @@
 import sqlite3
+from utils import insert
 
-stol_id_counter = 1  # Initialize a counter for stol_id
-
-def insert(table, values):
-    global stol_id_counter  # Access the global counter
-    con = sqlite3.connect('./database/database.db')
-    cursor = con.cursor()
-    formatted_values = []
-    for val in values:
-        if isinstance(val, str):
-            formatted_values.append(f"'{val}'")
-        else:
-            formatted_values.append(str(val))
-    cursor.execute(f'INSERT INTO {table} VALUES ({", ".join(formatted_values)})')
-    if table == 'Stol':  # Increment the counter only for Stol table
-        stol_id_counter += 1
-    con.commit()
-    con.close()
-
-insert('Teatersal', ('Hovedscenen',))
-insert('Teatersal', ('Gamle scene',))
+# stol_id_counter = 1  # Initialize a counter for stol_id
 
 def insert_stoler_Hovedscenen(sal, rows, seats):
-    global stol_id_counter
-    con = sqlite3.connect('./database/database.db')
-    cursor = con.cursor()
+
     for row in range(1, rows + 1):
         for seat in range(1, seats + 1):
-            stol_id = stol_id_counter
-            insert('Stol', (stol_id, seat, row, sal, 0))
-            stol_id_counter += 1
-    con.close()
-
-insert_stoler_Hovedscenen('Hovedscenen', 16, 28)
+            insert('Stol', ('stolnummer', 'radnummer', 'salnavn', 'omraadeID'), (seat, row, sal, 0))
 
 def insert_stoler_Parkett(sal, rows_parkett):
-    global stol_id_counter
-    con = sqlite3.connect('./database/database.db')
-    cursor = con.cursor()
-
     for row in range(1, rows_parkett + 1):
         if row in [1, 4, 5, 7]:
             seats = 18
@@ -47,17 +18,9 @@ def insert_stoler_Parkett(sal, rows_parkett):
         else:
             seats = 17
         for seat in range(1, seats + 1):
-            stol_id = stol_id_counter
-            insert('Stol', (stol_id, seat, row, sal + ': Parkett', 1))
-            stol_id_counter += 1
-
-    con.close()
+            insert('Stol', ('stolnummer', 'radnummer', 'salnavn', 'omraadeID'), (seat, row, sal + ': Parkett', 1))
 
 def insert_stoler_Balkong(sal, rows_balkong):
-    global stol_id_counter
-    con = sqlite3.connect('./database/database.db')
-    cursor = con.cursor()
-
     for row in range(1, rows_balkong + 1):
         if row == 1:
             seats = 28
@@ -66,17 +29,9 @@ def insert_stoler_Balkong(sal, rows_balkong):
         else:
             seats = 17
         for seat in range(1, seats + 1):
-            stol_id = stol_id_counter
-            insert('Stol', (stol_id, seat, row, sal + ': Balkong', 2))
-            stol_id_counter += 1
-
-    con.close()
+            insert('Stol', ('stolnummer', 'radnummer', 'salnavn', 'omraadeID'), (seat, row, sal + ': Balkong', 2))
 
 def insert_stoler_Galleri(sal, rows_galleri):
-    global stol_id_counter
-    con = sqlite3.connect('./database/database.db')
-    cursor = con.cursor()
-
     for row in range(1, rows_galleri + 1):
         if row == 1:
             seats = 33
@@ -85,43 +40,98 @@ def insert_stoler_Galleri(sal, rows_galleri):
         else:
             seats = 17
         for seat in range(1, seats + 1):
-            stol_id = stol_id_counter
-            insert('Stol', (stol_id, seat, row, sal + ': Galleri', 3))
-            stol_id_counter += 1
+            insert('Stol', ('stolnummer', 'radnummer', 'salnavn', 'omraadeID'), (seat, row, sal + ': Galleri', 3))
 
-    con.close()
-
-insert_stoler_Parkett('Gamle scene', 10)
-insert_stoler_Balkong('Gamle scene', 4)
-insert_stoler_Galleri('Gamle scene', 3)
-
-
-""" def insert_teaterstykker():
+def insert_teaterstykker():
     teaterstykke_data = [('Kongsemnene', 'Hovedscenen', '19:00'), ('Størst av alt er kjærligheten', 'Gamle scene', '18:30')]
     for stykke, sal, tid in teaterstykke_data:
-        insert('Teaterstykke', (stykke, sal, tid))
+        insert('Teaterstykke', ('navnPaStykke', 'salnavn', 'klokkeslett'), (stykke, sal, tid))
 
 def insert_roller():
-    rolle_data = [
-        ('Håkon Håkonssønn', 1), ('Dagfinn Bonde', 1), ('Jatgeir Skald', 1), ('Sigrid', 1),
-        ('Ingebjørg', 1), ('Guttorm Ingesson', 1), ('Skule jarl', 1), ('Inga fra Vartejg', 1),
-        ('Paal Flida', 1), ('Fru Ragnhild', 1), ('Gregorius Jonssønn', 1), ('Margrete', 1),
-        ('Biskop Nikolas', 1), ('Peter', 1)
+    rolle_data_kongsemnene = [
+        'Haakon Haakonssønn', 'Inga fra Vartejg', 'Skule jarl', 'Fru Ragnhild', 'Margrete',
+        'Sigrid', 'Biskop Nikolas', 'Gregorius Jonssønn', 'Paal Flida', 'Trønder', 'Baard Bratte',
+        'Jatgeir Skald', 'Dagfinn Bonde', 'Peter'
     ]
-    for rolle, navn in rolle_data:
-        insert('Rolle', (None, rolle, navn))
+    rolle_data_størst_av_alt_er_kjærligheten = [
+    'Sunniva Du Mond Nordal', 'Jo Saberniak', 'Marte M. Steinholt', 'Tor Ivar Hagen', 'Trond-Ove Skrødal',
+    'Natalie Grøndahl Tangen', 'Åsmund Flaten'
+    ]
+    for rolle in rolle_data_størst_av_alt_er_kjærligheten:
+        insert('Rolle', ('navn', 'navnPaStykke'), (rolle, 'Størst av alt er kjærligheten'))
+    for rolle in rolle_data_kongsemnene:
+        insert('Rolle', ('navn', 'navnPaStykke'), (rolle, 'Kongsemnene'))
 
 
 def insert_skuespiller():
-    skuespiller_data = [
-        ('Arturo', 'Scotti'), ('Emil', 'Olafsson'), ('Emil', 'Olafsson'), ('Emma Caroline', 'Deichmann'),
-        ('Emma Caroline', 'Deichmann'), (None, None), ('Hans Petter', 'Nilsen'), ('Ingunn Beate', 'Strige Øyen'),
-        ('Isak Holmen', 'Sørensen'), ('Madeleine Brandtzæg', 'Nilsen'), ('Per Bogstad', 'Gulliksen'),
-        ('Synnøve Fossum', 'Eriksen'), ('Thomas Jensen', 'Takyi'), ('Snorre Ryen', 'Tøndel')
+    skuespiller_data_kongsemene = [
+        ('Arturo', 'Scotti'), ('Ingunn Beate Strige', 'Øyen'), ('Hans Petter', 'Nilsen'), ('Madeleine Brandtzæg', 'Nilsen'),
+        ('Synnøve Fossum', 'Eriksen'), ('Emma Caroline', 'Deichmann'), ('Thomas Jensen', 'Takyi'), ('Per Bogstad', 'Gulliksen'),
+        ('Isak Holmen', 'Sørensen'), ('Fabian Heidelberg', 'Lunde'), ('Emil', 'Olafsson'), ('Snorre Ryen', 'Tøndel')
     ]
-    for fornavn, etternavn in skuespiller_data:
-        insert('Skuespiller', (None, fornavn, etternavn))
+    Skuespiller_data_størst_av_alt_er_kjærligheten = [
+        ('Sunniva Du Mond', 'Nordal'), ('Jo', 'Saberniak'), ('Marte M.', 'Steinholt'), ('Tor Ivar', 'Hagen'), ('Trond-ove', 'Skrødal'),
+        ('Natalie Grøndahl', 'Tangen'), ('Åsmund', 'Flaten')
+    ]
+    for fornavn, etternavn in skuespiller_data_kongsemene:
+        insert('Skuespiller', ('fornavn', 'etternavn'), (fornavn, etternavn))
+    for fornavn, etternavn in Skuespiller_data_størst_av_alt_er_kjærligheten:
+        insert('Skuespiller', ('fornavn', 'etternavn'), (fornavn, etternavn))
 
+def insert_saler():
+    insert('Teatersal', ['salnavn'], ['Hovedscenen'])
+    insert('Teatersal', ['salnavn'], ['Gamle scene'])
 
+def insert_forestillinger():
+    datoer_kongsemnene = [
+        '2024-02-01', '2024-02-02', '2024-02-03', '2024-02-05', '2024-02-06' # YYYY-MM-DD
+    ]
+    datoer_størst_av_alt_er_kjærligheten = [
+        '2024-02-03', '2024-02-06', '2024-02-07', '2024-02-12', '2024-02-13', '2024-02-14'
+    ]
+    for dato in datoer_kongsemnene:
+        insert('Forestilling', ('dato', 'tid', 'navnPaStykke'), (dato, '19:00', 'Kongsemnene'))
+    for dato in datoer_størst_av_alt_er_kjærligheten:
+        insert('Forestilling', ('dato', 'tid', 'navnPaStykke'), (dato, '18:30', 'Størst av alt er kjærligheten'))
+
+def insert_akter():
+    for i in range(1, 6):
+        insert('Akt', ('navnPaStykke', 'nummer', 'navn'), ('Kongsemnene', i, 'ukjent'))
+    insert('Akt', ('navnPaStykke', 'nummer', 'navn'), ('Størst av alt er kjærligheten', 1, 'ukjent'))
+
+def insert_oppgaver():
+    oppgaver = ['Regi', 'Scenografi og kostymer', 'Musikalsk ansvarlig', 'Lysdesign', 'Dramaturg', 'Regi og musikkutvelgelse']
+    for oppgave in oppgaver:
+        insert('Oppgave', ['oppgavetittel'], [oppgave])
+
+def insert_medvirkende_person():
+    medvirkende_personer_størst_av_alt_er_kjærligheten = [
+         ('corell@teater.no', 'Jonas Corell Petersen', 'Regi'),
+         ('gehrt@teater.no', 'David Gehrt', 'Scenografi og kostymer'),
+         ('tønder@teater.no', 'Gaute Tønder', 'Musikalsk ansvarlig'),
+         ('mikaelsen@teater.no', 'Magnus Mikaelsen', 'Lysdesign'),
+         ('spender@teater.no', 'Kristoffer Spender', 'Dramaturg')
+    ]
+    medvirkende_personer_kongsemnene = [
+         ('butusov@teater.no', 'Yury Butusov', 'Regi og musikkutvelgelse'),
+         ('kokusai@teater.no', 'Aleksandr Shishkin-Hokusai', 'Scenografi og kostymer'),
+         ('myten@teater.no', 'Eivind Myren', 'lysdesign'),
+         ('stokke@teater.no', 'Mina Rype Stokke', 'Dramaturg')
+    ]
+    for epost, navn, ansattStatus in medvirkende_personer_størst_av_alt_er_kjærligheten:
+        insert('MedvirkendePerson', ('epostadresse', 'navn', 'ansattStatus'), (epost, navn, ansattStatus))
+    for epost, navn, ansattStatus in medvirkende_personer_kongsemnene:
+        insert('MedvirkendePerson', ('epostadresse', 'navn', 'ansattStatus'), (epost, navn, ansattStatus))
+
+insert_stoler_Hovedscenen('Hovedscenen', 16, 28)
+insert_stoler_Parkett('Gamle scene', 10)
+insert_stoler_Balkong('Gamle scene', 4)
+insert_stoler_Galleri('Gamle scene', 3)
+insert_teaterstykker()
 insert_roller()
-insert_skuespiller() """
+insert_skuespiller()
+insert_saler()
+insert_forestillinger()
+insert_akter()
+insert_oppgaver()
+insert_medvirkende_person()

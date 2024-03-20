@@ -33,20 +33,24 @@ Setter inn data i databasen.
 obs:
 values oppgis som array med attributter, eksempelvis values = ['Hovedscenen']
 '''
-def insert(table, values):
+
+def insert(table, columns, values):
     con = sqlite3.connect('./database/database.db')
     cursor = con.cursor()
-    formatted_values = []
-    for val in values:
-        if isinstance(val, str):
-            formatted_values.append(f"'{val}'")
-        else:
-            formatted_values.append(str(val))
-    cursor.execute(f'INSERT INTO {table} VALUES ({", ".join(formatted_values)})')
+    placeholders = ', '.join(['?' for _ in columns])
+    cursor.execute(f'INSERT INTO {table} ({", ".join(columns)}) VALUES ({placeholders})', values)
     con.commit()
     con.close()
 
-# insert('Teatersal', ['testescene7'])
+# insert('Teatersal', ['salnavn'], ['Gamle scenek'])
 
-# for row in query('Teatersal'):
-#     print(row)
+# insert('Rolle', ('navn', 'navnPaStykke'), ('verdi1', 'verdi2'))
+
+
+
+
+
+
+
+
+

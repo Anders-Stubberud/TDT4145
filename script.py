@@ -46,7 +46,4 @@ def insert(table, values):
     con.commit()
     con.close()
 
-# insert('Teatersal', ['testescene7'])
-
-for row in query('Teatersal'):
-    print(row)
+insert('Pris', [200])

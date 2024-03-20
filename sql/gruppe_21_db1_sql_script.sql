@@ -1,21 +1,19 @@
 -- Følgende restriksjoner må håndteres i applikasjonsprogrammet
 -- Forestillingene til de ulike stykkene skal gå på bestemte datoer og klokkeslett
 -- Det skal kun være mulig å sette opp stykkene «Kongsemnene» og «Størst av alt er kjærligheten.»
--- Prisen til billettene skal avgjøres basert på kundens gruppe.
+-- Prisen til billettene skal avgjøres basert på kundens gruppe. 
 -- Billettene tilhørende et billettkjøp hører til samme forestilling.
 -- Barn skal ikke kunne kjøpe billetter til  «Kongsemnene».
 -- Hvorvidt tittelen til en ansatt er gyldig.
 
 CREATE TABLE IF NOT EXISTS Teatersal (
-    salnavn TEXT NOT NULL,
-    PRIMARY KEY (salnavn)
+    salnavn TEXT NOT NULL PRIMARY KEY
 );
 
 CREATE TABLE IF NOT EXISTS Teaterstykke (
-    navnPaStykke TEXT NOT NULL,
+    navnPaStykke TEXT PRIMARY KEY,
     salnavn TEXT NOT NULL,
     klokkeslett TIME NOT NULL,
-    PRIMARY KEY (navnPaStykke),
     FOREIGN KEY (salnavn)
         REFERENCES Teatersal (salnavn)
             ON UPDATE CASCADE
@@ -32,7 +30,7 @@ CREATE TABLE IF NOT EXISTS Akt (
 );
 
 CREATE TABLE IF NOT EXISTS Rolle (
-    rolleID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    rolleID INTEGER PRIMARY KEY,
     navn TEXT NOT NULL,
     navnPaStykke TEXT NOT NULL,
     FOREIGN KEY (navnPaStykke)
@@ -55,13 +53,13 @@ CREATE TABLE IF NOT EXISTS rolleIAkt (
 );
 
 CREATE TABLE IF NOT EXISTS Skuespiller (
-    skuespillerID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    skuespillerID INTEGER PRIMARY KEY,
     fornavn TEXT NOT NULL,
     etternavn TEXT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS spillerRolle (
-    rolleID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    rolleID INTEGER PRIMARY KEY,
     skuespillerID INTEGER NOT NULL,
     FOREIGN KEY (rolleID)
         REFERENCES Rolle (rolleID)
@@ -85,12 +83,12 @@ CREATE TABLE IF NOT EXISTS spillerIAkt (
 );
 
 CREATE TABLE IF NOT EXISTS Omraade (
-    omraadeID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    omraadeID INTEGER PRIMARY KEY,
     omraadenavn TEXT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Stol (
-    stolID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    stolID INTEGER PRIMARY KEY,
     stolnummer INTEGER NOT NULL,
     radnummer INTEGER NOT NULL,
     salnavn TEXT NOT NULL,
@@ -104,8 +102,9 @@ CREATE TABLE IF NOT EXISTS Stol (
 );
 
 CREATE TABLE IF NOT EXISTS Forestilling (
-    forestillingID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    forestillingID INTEGER PRIMARY KEY,
     dato DATE NOT NULL,
+    tid TIME NOT NULL,
     navnPaStykke TEXT NOT NULL,
     FOREIGN KEY (navnPaStykke)
         REFERENCES Teaterstykke (navnPaStykke)
@@ -113,30 +112,27 @@ CREATE TABLE IF NOT EXISTS Forestilling (
 );
 
 CREATE TABLE IF NOT EXISTS Kundegruppe (
-    gruppenavn TEXT NOT NULL,
-    PRIMARY KEY (gruppenavn)
+    gruppenavn TEXT PRIMARY KEY
 );
 
 CREATE TABLE IF NOT EXISTS Kundeprofil (
-    mobilnummer INTEGER NOT NULL,
+    mobilnummer INTEGER PRIMARY KEY,
     navn TEXT NOT NULL,
     adresse TEXT NOT NULL,
     gruppenavn TEXT NOT NULL,
-    PRIMARY KEY (mobilnummer),
     FOREIGN KEY (gruppenavn)
         REFERENCES Kundegruppe (gruppenavn)
             ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS Pris (
-    prisID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    prisID INTEGER PRIMARY KEY,
     pris FLOAT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS KostnadForGruppe (
-    gruppenavn TEXT NOT NULL,
+    gruppenavn TEXT PRIMARY KEY,
     prisID INTEGER NOT NULL,
-    PRIMARY KEY (gruppenavn, prisID),
     FOREIGN KEY (gruppenavn)
         REFERENCES Kundegruppe (gruppenavn)
             ON UPDATE CASCADE,
@@ -146,9 +142,8 @@ CREATE TABLE IF NOT EXISTS KostnadForGruppe (
 );
 
 CREATE TABLE IF NOT EXISTS KostnadForForestilling (
-    navnPaStykke TEXT NOT NULL,
+    navnPaStykke TEXT PRIMARY KEY,
     prisID INTEGER NOT NULL,
-    PRIMARY KEY (navnPaStykke, prisID),
     FOREIGN KEY (navnPaStykke)
         REFERENCES Teaterstykke (navnPaStykke)
             ON UPDATE CASCADE,
@@ -158,7 +153,7 @@ CREATE TABLE IF NOT EXISTS KostnadForForestilling (
 );
 
 CREATE TABLE IF NOT EXISTS BillettKjøp (
-    kjøpsID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    kjøpsID INTEGER PRIMARY KEY,
     dato DATE NOT NULL,
     tid TIME NOT NULL,
     mobilnummer INTEGER NOT NULL,
@@ -168,7 +163,7 @@ CREATE TABLE IF NOT EXISTS BillettKjøp (
 );
 
 CREATE TABLE IF NOT EXISTS Billett (
-    billettID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    billettID INTEGER PRIMARY KEY,
     stolID INTEGER NOT NULL,
     forestillingID INTEGER NOT NULL,
     kjøpsID INTEGER NOT NULL,
@@ -184,8 +179,7 @@ CREATE TABLE IF NOT EXISTS Billett (
 );
 
 CREATE TABLE IF NOT EXISTS Oppgave (
-    oppgavetittel TEXT NOT NULL,
-    PRIMARY KEY (oppgavetittel)
+    oppgavetittel TEXT PRIMARY KEY
 );
 
 CREATE TABLE IF NOT EXISTS oppgaveIStykke (
@@ -201,11 +195,10 @@ CREATE TABLE IF NOT EXISTS oppgaveIStykke (
 );
 
 CREATE TABLE IF NOT EXISTS MedvirkendePerson (
-    personIdentifikator INTEGER NOT NULL,
+    personID INTEGER PRIMARY KEY,
     epostadresse TEXT UNIQUE,
     navn TEXT NOT NULL,
-    ansattstatus TEXT,
-    PRIMARY KEY (personIdentifikator)
+    ansattstatus TEXT
 );
 
 CREATE TABLE IF NOT EXISTS utførerOppgave (

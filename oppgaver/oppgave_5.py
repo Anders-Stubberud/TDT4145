@@ -1,1 +1,1 @@
-from hjelpemetoder.hjelpemotoder import query, insert
+from oppgaver.utils import query, insert
