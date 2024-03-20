@@ -1,4 +1,6 @@
+import os
 import sqlite3
+
 
 '''
 Denne filen gir tilgang til databaseoperasjonene "query" og "insert", som henholdsvis leser av og setter inn data.
@@ -10,7 +12,7 @@ Denne filen gir tilgang til databaseoperasjonene "query" og "insert", som henhol
 Leser ut og returnerer spesifisert data.
 '''
 def query(query):
-    con = sqlite3.connect('./database/database.db')
+    con = sqlite3.connect(os.path.join(os.path.dirname(__file__), '../teater.db'))
     cursor = con.cursor()   
     result = cursor.execute(query)
     result = result.fetchall()
@@ -25,7 +27,7 @@ values oppgis som array med attributter, eksempelvis values = ['Hovedscenen']
 '''
 
 def insert(table, columns, values):
-    con = sqlite3.connect('./database/database.db')
+    con = sqlite3.connect(os.path.join(os.path.dirname(__file__), '../teater.db'))
     cursor = con.cursor()
     placeholders = ', '.join(['?' for _ in columns])
     cursor.execute(f'INSERT INTO {table} ({", ".join(columns)}) VALUES ({placeholders})', values)
@@ -33,7 +35,7 @@ def insert(table, columns, values):
     con.close()
 
 def insert_return_rowID(table, columns, values):
-    con = sqlite3.connect('./database/database.db')
+    con = sqlite3.connect(os.path.join(os.path.dirname(__file__), '../teater.db'))
     cursor = con.cursor()
     placeholders = ', '.join(['?' for _ in columns])
     cursor.execute(f'INSERT INTO {table} ({", ".join(columns)}) VALUES ({placeholders})', values)

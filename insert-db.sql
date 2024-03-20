@@ -34,7 +34,7 @@ INSERT INTO Akt(navnPaStykke, nummer, navn) VALUES
 ('Kongsemnene', 4, 'Akt 4'),
 ('Kongsemnene', 5, 'Akt 5');
 
-INSERT INTO Spillerolle(skuespillerID, rolleID) VALUES
+INSERT INTO SpillerRolle(skuespillerID, rolleID) VALUES
 (1, 8), -- Arturo Scotti as Haakon Haakonssønn
 (2, 9), -- Ingunn Beate Strige Øyen as Inga fra Vartejg
 (3, 10), -- Hans Petter Nilsen as Skule jarl
@@ -49,7 +49,7 @@ INSERT INTO Spillerolle(skuespillerID, rolleID) VALUES
 (12, 19), -- Snorre Ryen Tøndel as Jatgeir Skald / Dagfinn Bonde
 (13, 20); -- Peter
 
-INSERT INTO SpillerIAkt(skuespillerID, navnPaStykke, aktNummer) VALUES
+INSERT INTO SpillerIAkt(skuespillerID, navnPaStykke, nummer) VALUES
 (1, 'Kongsemnene', 1), -- Arturo Scotti in Act 1 of Kongsemnene
 (2, 'Kongsemnene', 1), -- Ingunn Beate Strige Øyen in Act 1 of Kongsemnene
 (3, 'Kongsemnene', 1), -- Hans Petter Nilsen in Act 1 of Kongsemnene
@@ -87,10 +87,6 @@ VALUES
 ('Jatgeir Skald', 'Kongsemnene'),
 ('Dagfinn Bonde', 'Kongsemnene'),
 ('Peter', 'Kongsemnene');
-
-INSERT INTO Teaterstykke(navnPaStykke, salnavn, klokkeslett) VALUES 
-('Kongsemnene', 'Hovedscenen', '19:00'),
-('Størst av alt er kjærligheten', 'Gamle scene', '18:30');
 
 INSERT INTO Rolle(navn, navnPaStykke) VALUES 
 ('Sunniva Du Mond Nordal', 'Størst av alt er kjærligheten'),
@@ -135,27 +131,42 @@ INSERT INTO Kundegruppe(gruppenavn) VALUES
 ('Gruppe 10'),
 ('Gruppe honnør 10');
 
-INSERT INTO Pris(pris) VALUES
-(450.0), -- Ordinær for Kongsemnene
-(380.0), -- Honnør for Kongsemnene
-(280.0), -- Student for Kongsemnene
-(420.0), -- Gruppe 10 for Kongsemnene
-(360.0), -- Gruppe honnør 10 for Kongsemnene
-(350.0), -- Ordinær for Størst av alt er kjærligheten
-(300.0), -- Honnør for Størst av alt er kjærligheten
-(220.0), -- Student for Størst av alt er kjærligheten
-(220.0), -- Barn for Størst av alt er kjærligheten
-(320.0), -- Gruppe 10 for Størst av alt er kjærligheten
-(270.0); -- Gruppe honnør 10 for Størst av alt er kjærligheten
+INSERT INTO KostnadForStykke(navnPaStykke, gruppenavn, pris)
+VALUES
+('Kongsemnene', 'Ordinær', 450),
+('Kongsemnene', 'Honnør', 380),
+('Kongsemnene', 'Student', 280),
+-- med restriksjoner
+('Kongsemnene', 'Gruppe 10', 420), 
+('Kongsemnene', 'Gruppe honnør 10', 360),
+('Størst av alt er kjærligheten', 'Ordinær', 350),
+('Størst av alt er kjærligheten', 'Honnør', 300),
+('Størst av alt er kjærligheten', 'Student', 220),
+('Størst av alt er kjærligheten', 'Barn', 220),
+('Størst av alt er kjærligheten', 'Gruppe 10', 320), 
+('Størst av alt er kjærligheten', 'Gruppe honnør 10', 270);
 
-INSERT INTO KostnadForForestilling(navnPaStykke, prisID) VALUES
-('Kongsemnene', 1), -- Ordinær for Kongsemnene
-('Kongsemnene', 2), -- Honnør for Kongsemnene
-('Kongsemnene', 3), -- Student for Kongsemnene
-('Kongsemnene', 4), -- Gruppe 10 for Kongsemnene
-('Kongsemnene', 5), -- Gruppe honnør 10 for Kongsemnene
-('Størst av alt er kjærligheten', 6), -- Ordinær for Størst av alt er kjærligheten
-('Størst av alt er kjærligheten', 7), -- Honnør for Størst av alt er kjærligheten
-('Størst av alt er kjærligheten', 8), -- Student for Størst av alt er kjærligheten
-('Størst av alt er kjærligheten', 9), -- Barn for Størst av alt er kjærligheten
-('Størst av alt er kjærligheten', 10); -- Gruppe 10 for Størst av alt er kjærligheten
+-- INSERT INTO Pris(pris) VALUES
+-- (450.0), -- Ordinær for Kongsemnene
+-- (380.0), -- Honnør for Kongsemnene
+-- (280.0), -- Student for Kongsemnene
+-- (420.0), -- Gruppe 10 for Kongsemnene
+-- (360.0), -- Gruppe honnør 10 for Kongsemnene
+-- (350.0), -- Ordinær for Størst av alt er kjærligheten
+-- (300.0), -- Honnør for Størst av alt er kjærligheten
+-- (220.0), -- Student for Størst av alt er kjærligheten
+-- (220.0), -- Barn for Størst av alt er kjærligheten
+-- (320.0), -- Gruppe 10 for Størst av alt er kjærligheten
+-- (270.0); -- Gruppe honnør 10 for Størst av alt er kjærligheten
+
+-- INSERT INTO KostnadForForestilling(navnPaStykke, prisID) VALUES
+-- ('Kongsemnene', 1), -- Ordinær for Kongsemnene
+-- ('Kongsemnene', 2), -- Honnør for Kongsemnene
+-- ('Kongsemnene', 3), -- Student for Kongsemnene
+-- ('Kongsemnene', 4), -- Gruppe 10 for Kongsemnene
+-- ('Kongsemnene', 5), -- Gruppe honnør 10 for Kongsemnene
+-- ('Størst av alt er kjærligheten', 6), -- Ordinær for Størst av alt er kjærligheten
+-- ('Størst av alt er kjærligheten', 7), -- Honnør for Størst av alt er kjærligheten
+-- ('Størst av alt er kjærligheten', 8), -- Student for Størst av alt er kjærligheten
+-- ('Størst av alt er kjærligheten', 9), -- Barn for Størst av alt er kjærligheten
+-- ('Størst av alt er kjærligheten', 10); -- Gruppe 10 for Størst av alt er kjærligheten

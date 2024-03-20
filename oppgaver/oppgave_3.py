@@ -20,7 +20,7 @@ def kjøpe_ni_voksenbilletter():
         if radTilIDMapper[rad] and len(radTilIDMapper[rad]) == 9:
             ni_stoler = radTilIDMapper[rad]
             break
-    pris_voksenbillett = query(f'SELECT pris FROM kostnadForStykke WHERE gruppenavn = "ordinær" AND navnPaStykke = "{ stykke }"')
+    pris_voksenbillett = query(f'SELECT pris FROM kostnadForStykke WHERE gruppenavn = "Ordinær" AND navnPaStykke = "{ stykke }"')[0][0]
     kjøpsID = insert_return_rowID('BillettKjop', ('dato', 'tid', 'mobilnummer'), ('2024-01-01', '12:00', mobilnummer))
     for solgt_stol in ni_stoler:
         billettID = insert_return_rowID('Billett', ('stolID', 'forestillingID', 'kjopsID'), (solgt_stol, forestillingID, kjøpsID))

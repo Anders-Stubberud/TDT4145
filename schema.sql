@@ -147,7 +147,7 @@ CREATE TABLE IF NOT EXISTS Kundeprofil (
 CREATE TABLE IF NOT EXISTS KostnadForStykke (
     navnPaStykke TEXT NOT NULL,
     gruppenavn TEXT NOT NULL,
-    pris INTEGER NUT NULL,
+    pris INTEGER NOT NULL,
     FOREIGN KEY (gruppenavn)
         REFERENCES Kundegruppe (gruppenavn)
             ON UPDATE CASCADE,
