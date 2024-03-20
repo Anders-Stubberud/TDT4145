@@ -1,5 +1,6 @@
 import os
 import sqlite3
+
 def insert(table, values):
     con = sqlite3.connect('./database/database.db')
     cursor = con.cursor()
@@ -7,18 +8,21 @@ def insert(table, values):
     for val in values:
         if isinstance(val, str):
             formatted_values.append(f"'{val}'")
+        elif val is None:
+            formatted_values.append('NULL')
         else:
             formatted_values.append(str(val))
-    cursor.execute(f'INSERT INTO {table} VALUES ({", ".join(formatted_values)})')
+    query = f"INSERT INTO {table} VALUES ({', '.join(formatted_values)})"
+    cursor.execute(query)
     con.commit()
     con.close()
 
 def lese_sete_config_fra_fil(file_path):
     with open(file_path, 'r') as file:
         content = file.read().split('\n')
-        # date = content[0].strip()
+        dato = None
+        # Extract date from the first line if present
         if "Dato" in content[0]:
-            print("kommer hit")
             words = content[0].split()
             for word in words:
                 if len(word) == 10 and word[4] == "-" and word[7] == "-":
@@ -27,20 +31,18 @@ def lese_sete_config_fra_fil(file_path):
         sections = {}
         current_section = None
         current_config = []
-
         for line in content[1:]:
             if line in ['Galleri', 'Parkett', 'Balkong']:
                 if current_section:
-                    sections[current_section] = "".join(reversed(current_config))
+                    # Append the reversed configuration list
+                    sections[current_section] = '\n'.join(current_config[::-1])
                     current_config = []
                 current_section = line
             else:
                 current_config.append(line)
-        
         # Don't forget the last section
         if current_section:
-            sections[current_section] = "".join(reversed(current_config))
-
+            sections[current_section] = '\n'.join(current_config[::-1])
     return dato, sections
 
 def parse_sete_config(date, section, seating_config):
@@ -53,19 +55,20 @@ def parse_sete_config(date, section, seating_config):
     return sold_seats
 
 def insert_solgte_seter(sold_seats):
-    insert('Stol', ["1", ])
-    # for date, section, row, column in sold_seats:
-    #     insert('Stol', [date, section, row, column])
+    for dato, section, row, column in sold_seats:
+        # insert('Stol', [date, section, row, column])
+        insert('BillettKjop', [None,  dato, "naa", "123123"])
 
-# print(os.getcwd())
-# print(os.path.exists("filer"))
-# file_path = os.getcwd("filer/")
-# for filer in file_path:
-#     f = open(filer, "r")
-#     print(f.read())
-#     f.close()
-file1 = "filer/gamle-scene.txt"
-file2 = "filer/hovedscenen.txt"
+def process_directory(directory_path):
+    for filename in os.listdir(directory_path):
+        if filename.endswith(".txt"):
+            file_path = os.path.join(directory_path, filename)
+            date, sections = lese_sete_config_fra_fil(file_path)
+            for section, config in sections.items():
+                sold_seats = parse_sete_config(date, section, config)
+                insert_solgte_seter(sold_seats)
+            print(f"Processed {filename}")
 
-print(lese_sete_config_fra_fil(file1))
-print(lese_sete_config_fra_fil(file2))
+# Example usage
+directory_path = "filer"
+process_directory(directory_path)
