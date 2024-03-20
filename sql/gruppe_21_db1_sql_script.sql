@@ -128,30 +128,31 @@ CREATE TABLE IF NOT EXISTS Kundeprofil (
             ON UPDATE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS Pris (
-    prisID INTEGER PRIMARY KEY,
-    pris FLOAT NOT NULL
-);
+-- CREATE TABLE IF NOT EXISTS Pris (
+--     prisID INTEGER PRIMARY KEY,
+--     pris FLOAT NOT NULL
+-- );
 
-CREATE TABLE IF NOT EXISTS KostnadForGruppe (
-    gruppenavn TEXT PRIMARY KEY,
-    prisID INTEGER NOT NULL,
+-- CREATE TABLE IF NOT EXISTS KostnadForGruppe (
+--     gruppenavn TEXT PRIMARY KEY,
+--     prisID INTEGER NOT NULL,
+--     FOREIGN KEY (gruppenavn)
+--         REFERENCES Kundegruppe (gruppenavn)
+--             ON UPDATE CASCADE,
+--     FOREIGN KEY (prisID)
+--         REFERENCES Pris (prisID)
+--             ON UPDATE CASCADE
+-- );
+
+CREATE TABLE IF NOT EXISTS KostnadForStykke (
+    navnPaStykke TEXT NOT NULL,
+    gruppenavn TEXT NOT NULL,
+    pris INTEGER NUT NULL,
     FOREIGN KEY (gruppenavn)
         REFERENCES Kundegruppe (gruppenavn)
             ON UPDATE CASCADE,
-    FOREIGN KEY (prisID)
-        REFERENCES Pris (prisID)
-            ON UPDATE CASCADE
-);
-
-CREATE TABLE IF NOT EXISTS KostnadForForestilling (
-    navnPaStykke TEXT PRIMARY KEY,
-    prisID INTEGER NOT NULL,
     FOREIGN KEY (navnPaStykke)
         REFERENCES Teaterstykke (navnPaStykke)
-            ON UPDATE CASCADE,
-    FOREIGN KEY (prisID)
-        REFERENCES Pris (prisID)
             ON UPDATE CASCADE
 );
 
