@@ -88,29 +88,6 @@ VALUES
 ('Dagfinn Bonde', 'Kongsemnene'),
 ('Peter', 'Kongsemnene');
 
-INSERT INTO Rolle(navn, navnPaStykke) VALUES 
-('Sunniva Du Mond Nordal', 'Størst av alt er kjærligheten'),
-('Jo Saberniak', 'Størst av alt er kjærligheten'),
-('Marte M. Steinholt', 'Størst av alt er kjærligheten'),
-('Tor Ivar Hagen', 'Størst av alt er kjærligheten'),
-('Trond-Ove Skrødal', 'Størst av alt er kjærligheten'),
-('Natalie Grøndahl Tangen', 'Størst av alt er kjærligheten'),
-('Åsmund Flaten', 'Størst av alt er kjærligheten'),
-('Haakon Haakonssønn', 'Kongsemnene'),
-('Inga fra Vartejg', 'Kongsemnene'),
-('Skule jarl', 'Kongsemnene'),
-('Fru Ragnhild', 'Kongsemnene'),
-('Margrete', 'Kongsemnene'),
-('Sigrid', 'Kongsemnene'),
-('Biskop Nikolas', 'Kongsemnene'),
-('Gregorius Jonssønn', 'Kongsemnene'),
-('Paal Flida', 'Kongsemnene'),
-('Trønder', 'Kongsemnene'),
-('Baard Bratte', 'Kongsemnene'),
-('Jatgeir Skald', 'Kongsemnene'),
-('Dagfinn Bonde', 'Kongsemnene'),
-('Peter', 'Kongsemnene');
-
 INSERT INTO Forestilling(dato, tid, navnPaStykke) VALUES 
 ('2024-02-01', '19:00', 'Kongsemnene'),
 ('2024-02-02', '19:00', 'Kongsemnene'),
@@ -146,7 +123,8 @@ VALUES
 ('Størst av alt er kjærligheten', 'Gruppe 10', 320), 
 ('Størst av alt er kjærligheten', 'Gruppe honnør 10', 270);
 
--- INSERT INTO Pris(pris) VALUES
+-- INSERT INTO Pris(pris) 
+-- VALUES
 -- (450.0), -- Ordinær for Kongsemnene
 -- (380.0), -- Honnør for Kongsemnene
 -- (280.0), -- Student for Kongsemnene
@@ -159,7 +137,8 @@ VALUES
 -- (320.0), -- Gruppe 10 for Størst av alt er kjærligheten
 -- (270.0); -- Gruppe honnør 10 for Størst av alt er kjærligheten
 
--- INSERT INTO KostnadForForestilling(navnPaStykke, prisID) VALUES
+-- INSERT INTO KostnadForForestilling(navnPaStykke, prisID) 
+-- VALUES
 -- ('Kongsemnene', 1), -- Ordinær for Kongsemnene
 -- ('Kongsemnene', 2), -- Honnør for Kongsemnene
 -- ('Kongsemnene', 3), -- Student for Kongsemnene
