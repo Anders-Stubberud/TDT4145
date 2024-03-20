@@ -85,6 +85,9 @@ def insert_skuespiller():
     for fornavn, etternavn in Skuespiller_data_størst_av_alt_er_kjærligheten:
         insert('Skuespiller', ('fornavn', 'etternavn'), (fornavn, etternavn))
 
+def insertSpillerRolle():
+    
+
 def insert_saler():
     insert('Teatersal', ['salnavn'], ['Hovedscenen'])
     insert('Teatersal', ['salnavn'], ['Gamle scene'])
