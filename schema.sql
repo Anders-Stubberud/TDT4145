@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS Teaterstykke (
 CREATE TABLE IF NOT EXISTS Akt (
     navnPaStykke TEXT NOT NULL,
     nummer INTEGER NOT NULL,
-    navn TEXT,
+    aktNavn TEXT,
     PRIMARY KEY (navnPaStykke, nummer),
     FOREIGN KEY (navnPaStykke)
         REFERENCES Teaterstykke (navnPaStykke)
