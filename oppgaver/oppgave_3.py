@@ -2,10 +2,9 @@
 from oppgaver.utils import query, insert, insert_return_rowID
 from random import randint
 
-# Mulig implementasjon
 def kjøpe_ni_voksenbilletter():
-    mobilnummer = randint(1, 100000000)
-    # Inserting a dummy customer profile directly
+    mobilnummer = randint(10000000, 99999999) # genererer tilfeldig mobilnummer for å kune kjøre script flere ganger uten å tømme database
+
     insert('Kundeprofil', 
            ('mobilnummer', 'fornavn', 'etternavn', 'postnummer', 'gatenavn', 'gatenummer', 'gruppenavn'), 
            (mobilnummer, 'dummy_fornavn', 'dummy_etternavn', '0010', 'slottsplassen', 1, 'Ordinær'))
@@ -20,12 +19,22 @@ def kjøpe_ni_voksenbilletter():
         AND f.dato = "2024-02-03" 
         AND k.gruppenavn = "Ordinær"
     ''')[0]
-    forestillingID, salnavn, pris_voksenbillett = forestilling_details
+    forestillingID, _, pris_voksenbillett = forestilling_details
     
     # Selecting any nine available seats rather than finding nine consecutive seats
     available_seats = query('''
         SELECT stolID FROM Stol 
         WHERE stolID NOT IN (SELECT stolID FROM bestiltStol)
+        AND radnummer = (
+            SELECT radnummer FROM (
+                SELECT radnummer, COUNT(*) AS available_seats_count 
+                FROM Stol 
+                WHERE stolID NOT IN (SELECT stolID FROM bestiltStol)
+                GROUP BY radnummer
+                ORDER BY available_seats_count DESC
+                LIMIT 1
+            )
+        )
         LIMIT 9
     ''')
 
@@ -44,5 +53,3 @@ def kjøpe_ni_voksenbilletter():
 
     total_price = 9 * pris_voksenbillett
     print(f'Prisen for dine 9 voksenbilletter til forestillingen er: {total_price}')
-
-# kjøpe_ni_voksenbilletter_optimized()

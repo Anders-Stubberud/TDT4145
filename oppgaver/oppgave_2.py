@@ -18,6 +18,7 @@ def insert_solgte_stoler_hovedscenen():
         lines = file.readlines()
     stoler_fra_nummer_en = ''.join([rad.strip() for rad in lines[lines.index('Parkett\n') + 1:]][::-1])
     solgte_stoler = [stolindex + 1 for stolindex, solgt in enumerate(stoler_fra_nummer_en) if solgt == '1']
+    
     stol_IDer_solgte_stoler_hovedscenen_tupler = query(f'SELECT stolID FROM Stol WHERE (stolnummer IN ({", ".join(map(str, solgte_stoler))}) AND salnavn = "Hovedscenen")')
     stol_IDer_solgte_stoler_hovedscenen = [solgt_stol[0] for solgt_stol in stol_IDer_solgte_stoler_hovedscenen_tupler]
     forestillingID_tuppel = query(f'SELECT forestillingID FROM (Teaterstykke NATURAL JOIN Forestilling) where dato = "2024-02-03" AND salnavn ="Hovedscenen"')
