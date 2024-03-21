@@ -14,24 +14,24 @@ def best_seller():
     """
     
     # Execute query using utils function
-    plays = query(query_str)
+    stykker = query(query_str)
     
-    return plays
+    return stykker
 
-def print_best_sellers(plays):
+def print_best_sellers(stykker):
     print("Best Selling Performances:")
     print("{:<30} {:<20} {:<10}".format("Forestilling", "Dato", "Antall solgte plasser"))
     print("-" * 60)
-    for play in plays:
+    for play in stykker:
         forestillingsnavn = play[0]
         spilldato = play[1]
         antall_solgte_billetter = play[2]
         print("{:<30} {:<20} {:<10}".format(forestillingsnavn, spilldato, antall_solgte_billetter))
 
 def print_bestselgere():
-    plays = best_seller()
-    print("Data structure of plays:", plays)
-    print_best_sellers(plays)
+    stykker = best_seller()
+    print("Data structure of plays:", stykker)
+    print_best_sellers(stykker)
 
 if __name__ == "__main__":
     print_bestselgere()
