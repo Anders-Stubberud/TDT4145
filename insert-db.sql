@@ -220,4 +220,23 @@ VALUES
 ('Størst av alt er kjærligheten', 'Gruppe 10', 320), 
 ('Størst av alt er kjærligheten', 'Gruppe honnør 10', 270);
 
+INSERT INTO MedvirkendePerson(personID, epostadresse, navn, ansattstatus)
+VALUES
+(1, 'corell@teater.no', 'Jonas Corell Petersen', 'Regi'),
+(2, 'gehrt@teater.no', 'David Gehrt', 'Scenografi og kostymer'),
+(3, 'tønder@teater.no', 'Gaute Tønder', 'Musikalsk ansvarlig'),
+(4, 'mikaelsen@teater.no', 'Magnus Mikaelsen', 'Lysdesign'),
+(5, 'spender@teater.no', 'Kristoffer Spender', 'Dramaturg'),
+(6, 'butusov@teater.no', 'Yury Butusov', 'Regi og musikkutvelgelse'),
+(7, 'kokusai@teater.no', 'Aleksandr Shishkin-Hokusai', 'Scenografi og kostymer'),
+(8, 'myten@teater.no', 'Eivind Myren', 'lysdesign'),
+(9, 'stokke@teater.no', 'Mina Rype Stokke', 'Dramaturg');
 
+INSERT INTO Oppgave(oppgavetittel)
+VALUES
+('Regi'), 
+('Scenografi og kostymer'), 
+('Musikalsk ansvarlig'), 
+('Lysdesign'), 
+('Dramaturg'), 
+('Regi og musikkutvelgelse');
