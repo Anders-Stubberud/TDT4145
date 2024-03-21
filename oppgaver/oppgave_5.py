@@ -20,8 +20,8 @@ def skuespillere_i_stykker():
 
     # Printe header
     header = f'{"Forestilling":<35} {"Skuespiller":<25} {"Rolle":<30}'
-    print(header)
-    print('-' * len(header))
+    print(" " * 4 + header)
+    print(" " * 4 + '-' * len(header))
 
     # Printe ut data
     stykker = list(stykker_med_skuespillere.keys())
@@ -30,9 +30,9 @@ def skuespillere_i_stykker():
             if j == 0:
                 if i > 0:
                     print()  
-                print(f'{stykke:<35} {skuespiller:<25} {rolle:<30}')
+                print(" " * 4 + f'{stykke:<35} {skuespiller:<25} {rolle:<30}')
             else:
-                print(f'{" ":<35} {skuespiller:<25} {rolle:<30}')
+                print(" " * 4 + f'{" ":<35} {skuespiller:<25} {rolle:<30}')
 
 # skuespillere_i_stykker()
 

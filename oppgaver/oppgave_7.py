@@ -7,14 +7,13 @@ hvilket skuespill det skjedde.
 '''
 
 def spiller_i_samme_akt():
-    fullt_navn = input("Enter your full name: ")
+    fullt_navn = input("    Navn på skuespiller: ")
     deler_navn = fullt_navn.split()
     if len(deler_navn) < 2:
-        print('Vi trenger fullt navn.')
+        print('    Vi trenger fullt navn.')
         return 
     fornavn = " ".join(deler_navn[:-1])
     etternavn = deler_navn[-1]
-    print(fornavn)
 
     stykke_fornavn_og_etternavn_for_de_som_har_spilt_i_samme_stykke =query(f'''
         SELECT DISTINCT navnPaStykke, fornavn, etternavn
@@ -29,4 +28,4 @@ def spiller_i_samme_akt():
     ''')
 
     for navn_på_stykke, fornavn_medskuespiller, etternavn_medskuespiller in stykke_fornavn_og_etternavn_for_de_som_har_spilt_i_samme_stykke:
-        print(f'{fornavn} {etternavn} spilte i samme akt som {fornavn_medskuespiller} {etternavn_medskuespiller} i {navn_på_stykke}')
+        print(f'    {fornavn} {etternavn} spilte i samme akt som {fornavn_medskuespiller} {etternavn_medskuespiller} i {navn_på_stykke}')

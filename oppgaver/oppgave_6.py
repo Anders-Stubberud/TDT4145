@@ -18,20 +18,19 @@ def best_seller():
     
     return stykker
 
-def print_best_sellers(stykker):
-    print("Best Selling Performances:")
-    print("{:<30} {:<20} {:<10}".format("Forestilling", "Dato", "Antall solgte plasser"))
-    print("-" * 60)
-    for play in stykker:
+def print_best_sellers(plays):
+    print("    Bestselgende forestillinger:")
+    print(" " * 4 + "{:<30} {:<20} {:<10}".format("Forestilling", "Dato", "Antall solgte plasser"))
+    print(" " * 4 + "-" * 60)
+    for play in plays:
         forestillingsnavn = play[0]
         spilldato = play[1]
         antall_solgte_billetter = play[2]
-        print("{:<30} {:<20} {:<10}".format(forestillingsnavn, spilldato, antall_solgte_billetter))
+        print(" " * 4 + "{:<30} {:<20} {:<10}".format(forestillingsnavn, spilldato, antall_solgte_billetter))
 
 def print_bestselgere():
-    stykker = best_seller()
-    print("Data structure of plays:", stykker)
-    print_best_sellers(stykker)
+    plays = best_seller()
+    print_best_sellers(plays)
 
 if __name__ == "__main__":
     print_bestselgere()
