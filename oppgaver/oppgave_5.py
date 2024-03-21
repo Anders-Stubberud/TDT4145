@@ -1,4 +1,4 @@
-from oppgaver.utils import query, insert, insert_return_rowID
+from oppgaver.utils import query
 
 
 '''
@@ -33,8 +33,4 @@ def skuespillere_i_stykker():
                 print(" " * 4 + f'{stykke:<35} {skuespiller:<25} {rolle:<30}')
             else:
                 print(" " * 4 + f'{" ":<35} {skuespiller:<25} {rolle:<30}')
-
-# skuespillere_i_stykker()
-
-# print(query(f''))
 

@@ -22,6 +22,3 @@ def forestiller_på_dato():
     print(f'    På datoen { dato } har vi følgende forestillinger:')
     for forestillingNavn, antall_solgte_billetter in data:
         print(f'    {forestillingNavn}, med {antall_solgte_billetter} solgte billetter')
-
-# forestiller_på_dato()
-

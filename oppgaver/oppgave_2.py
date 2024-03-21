@@ -2,15 +2,22 @@ import os
 from oppgaver.utils import query, insert, insert_return_rowID
 from random import randint
 
+'''
+Med oppgaven er det lagt ut noen filer som beskriver hvilke stoler som
+allerede er solgt til noen forestillinger. Her skal det lages Pythonprogram som
+leser filene og setter inn hvilke stoler som er solgt. Det er OK å sette inn
+stolene basert på disse filene også. Her er det ok at kjøper av de allerede
+solgte stolene er en standardbruker. dvs. samme forhåndsinnsatte bruker.
+'''
+
 def insert_solgte_stoler_hovedscenen():
 
-    mobilnummer = randint(1, 10000000000)
+    # dummy mobilnummer til dummy kundeprofil, ønsker ikke autoincrement ettersom hver bruker skal ha mobilnummer fra før
+    mobilnummer = randint(10000000, 99999999)
     insert('Kundeprofil', ('mobilnummer', 'fornavn', 'etternavn', 'postnummer', 'gatenavn', 'gatenummer', 'gruppenavn'), 
             (mobilnummer, 'dummy_fornavn', 'dummy_etternavn', '0010', 'slottsplassen', 1, 'Ordinær')
     )
 
-    # oppretter kundeprofil billettKjøp registeres mot
-    # oppretter ett billettkjøp som alle billetter registreres mot
     kjøpsID = insert_return_rowID('BillettKjop', ('dato', 'tid', 'mobilnummer'), ('2024-01-01', '12:00', mobilnummer))
 
     lines = None
@@ -36,8 +43,6 @@ def insert_solgte_stoler_gamle_scene():
 
     kjøpsID = insert_return_rowID('BillettKjop', ('dato', 'tid', 'mobilnummer'), ('2024-01-02', '12:00', mobilnummer))
 
-    # oppretter ett billettkjøp som alle billetter registreres mot
-    # kjøpsID = insert_return_rowID('BillettKjop', ('dato', 'tid', 'mobilnummer'), ('2024-01-01', '12:00', mobilnummer))
     lines = None
     with open(os.path.join(os.path.dirname(__file__), '../filer/gamle-scene.txt'), 'r') as file:
         lines = file.readlines()
@@ -61,6 +66,3 @@ def insert_solgte_stoler_gamle_scene():
     for solgt_stol_ID in ID_solgte_stoler_gamle_scene:
         billettID = insert_return_rowID('Billett', ('stolID', 'forestillingID', 'kjopsID'), (solgt_stol_ID, forestillingID, kjøpsID))
         insert('bestiltStol', ('billettID', 'stolID'), (billettID, solgt_stol_ID))
-
-# insert_solgte_stoler_hovedscenen()
-# insert_solgte_stoler_gamle_scene()

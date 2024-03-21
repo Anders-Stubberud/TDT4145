@@ -43,16 +43,3 @@ def insert_return_rowID(table, columns, values):
     con.commit()
     con.close()
     return rowID
-
-# insert('Teatersal', ['salnavn'], ['Gamle scenek'])
-
-# insert('Rolle', ('navn', 'navnPaStykke'), ('verdi1', 'verdi2'))
-
-
-
-
-
-
-
-
-

@@ -1,5 +1,11 @@
 from oppgaver.utils import insert
 
+'''
+Vi ønsker å sette inn de to salene nevnt over, sammen med stoler,
+teaterstykker, forestillinger, akter, roller, skuespillere og andre medvirkende,
+slik det er beskrevet i teksten over. Dette kan implementeres i SQL.
+'''
+
 def insert_stoler_Hovedscenen():
     row = 1
     for seat in range(1, 505):

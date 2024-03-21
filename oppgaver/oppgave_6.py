@@ -1,7 +1,13 @@
-from oppgaver.utils import query, insert, insert_return_rowID
+from oppgaver.utils import query
 
-def best_seller():
-    # SQL query
+'''
+Vi ønsker å lage et query i SQL som finner hvilke forestillinger som har solgt
+best. Skriv ut navn på forestilling og dato og antall solgte plasser sortert på
+antall plasser i synkende rekkefølge.
+'''
+
+def bestselgere():
+
     query_str = """
         SELECT TeaterStykke.navnPaStykke AS Forestillingsnavn, 
                f.dato AS Spilldato, 
@@ -13,12 +19,11 @@ def best_seller():
         ORDER BY AntallSolgteBilletter DESC
     """
     
-    # Execute query using utils function
     stykker = query(query_str)
     
     return stykker
 
-def print_best_sellers(plays):
+def print_best_selgere(plays):
     print("    Bestselgende forestillinger:")
     print(" " * 4 + "{:<30} {:<20} {:<10}".format("Forestilling", "Dato", "Antall solgte plasser"))
     print(" " * 4 + "-" * 60)
@@ -29,8 +34,8 @@ def print_best_sellers(plays):
         print(" " * 4 + "{:<30} {:<20} {:<10}".format(forestillingsnavn, spilldato, antall_solgte_billetter))
 
 def print_bestselgere():
-    plays = best_seller()
-    print_best_sellers(plays)
+    plays = bestselgere()
+    print_best_selgere(plays)
 
 if __name__ == "__main__":
     print_bestselgere()
