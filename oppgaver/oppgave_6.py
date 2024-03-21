@@ -1,4 +1,4 @@
-from utils import query
+from oppgaver.utils import query, insert, insert_return_rowID
 
 def best_seller():
     # SQL query
@@ -28,12 +28,10 @@ def print_best_sellers(plays):
         antall_solgte_billetter = play[2]
         print("{:<30} {:<20} {:<10}".format(forestillingsnavn, spilldato, antall_solgte_billetter))
 
-if __name__ == "__main__":
-    # Retrieve data using best_seller function
+def print_bestselgere():
     plays = best_seller()
-    
-    # Print the data structure
     print("Data structure of plays:", plays)
-
-    # Print best-selling performances
     print_best_sellers(plays)
+
+if __name__ == "__main__":
+    print_bestselgere()

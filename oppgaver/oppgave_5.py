@@ -1,4 +1,4 @@
-from utils import query, insert, insert_return_rowID
+from oppgaver.utils import query, insert, insert_return_rowID
 
 
 '''
@@ -13,7 +13,7 @@ def skuespillere_i_stykker():
     for navn_på_stykke, fornavn, etternavn, rolle_navn in data:
         print(f'{ fornavn } { etternavn } spiller { rolle_navn } i { navn_på_stykke }')
 
-skuespillere_i_stykker()
+# skuespillere_i_stykker()
 
 # print(query(f''))
 

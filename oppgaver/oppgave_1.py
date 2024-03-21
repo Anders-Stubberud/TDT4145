@@ -1,5 +1,4 @@
-import sqlite3
-from utils import insert
+from oppgaver.utils import insert
 
 # stol_id_counter = 1  # Initialize a counter for stol_id
 
@@ -138,10 +137,7 @@ def insert_stoler_Galleri(sal, rows_galleri):
 #     for epost, navn, ansattStatus in medvirkende_personer_kongsemnene:
 #         insert('MedvirkendePerson', ('epostadresse', 'navn', 'ansattStatus'), (epost, navn, ansattStatus))
 
-insert_stoler_Hovedscenen()
-insert_stoler_Parkett('Gamle scene', 10)
-insert_stoler_Balkong('Gamle scene', 4)
-insert_stoler_Galleri('Gamle scene', 3)
+
 # insert_teaterstykker()
 # insert_roller()
 # insert_område()

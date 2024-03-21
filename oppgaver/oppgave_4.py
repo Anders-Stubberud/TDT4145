@@ -1,4 +1,4 @@
-from utils import query
+from oppgaver.utils import query, insert, insert_return_rowID
 
 '''
 Her skal du implementere et Pythonprogram (med bruk av SQL) som tar inn
@@ -23,5 +23,5 @@ def forestiller_på_dato():
     for forestillingNavn, antall_solgte_billetter in data:
         print(f'{forestillingNavn}, med {antall_solgte_billetter} solgte billetter')
 
-forestiller_på_dato()
+# forestiller_på_dato()
 
