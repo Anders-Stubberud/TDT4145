@@ -11,10 +11,10 @@ while True:
     if oppgave == 0:
         conn = sqlite3.connect('teater.db')
         try:
-            with open('schema.sql', 'r') as f:
+            with open('schema.sql', 'r', encoding='utf-8') as f:
                 schema_sql = f.read()
                 conn.executescript(schema_sql)
-            with open('insert-db.sql', 'r') as f:
+            with open('insert-db.sql', 'r', encoding='utf-8') as f:
                 insert_sql = f.read()
                 conn.executescript(insert_sql)
             print("Databasen har nå fått data.")
@@ -80,7 +80,7 @@ while True:
         #     cursor.execute(f"DELETE FROM {table_name};")
         conn = sqlite3.connect('teater.db')
         try:
-            with open('drop_tables.sql', 'r') as f:
+            with open('drop_tables.sql', 'r', encoding='utf-8') as f:
                 schema_sql = f.read()
                 conn.executescript(schema_sql)
         except sqlite3.Error as e:
