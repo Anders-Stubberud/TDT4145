@@ -9,7 +9,7 @@ hvor det ikke er solgt noen billetter.
 
 def forestiller_på_dato():
 
-    dato = input('Hvilken dato for forestillinger og billetter? Format: YYYY-MM-DD, eksempel: 2024-02-03   ')
+    dato = input('    Hvilken dato for forestillinger og billetter? (Format: YYYY-MM-DD): ')
 
     data = query(f'''
         SELECT f.navnPaStykke, COUNT(b.forestillingID) AS antall_solgte_billetter
@@ -19,9 +19,9 @@ def forestiller_på_dato():
         GROUP BY f.forestillingID, f.navnPaStykke
     ''')
 
-    print(f'På datoen { dato } har vi følgende forestillinger:')
+    print(f'    På datoen { dato } har vi følgende forestillinger:')
     for forestillingNavn, antall_solgte_billetter in data:
-        print(f'{forestillingNavn}, med {antall_solgte_billetter} solgte billetter')
+        print(f'    {forestillingNavn}, med {antall_solgte_billetter} solgte billetter')
 
 # forestiller_på_dato()
 

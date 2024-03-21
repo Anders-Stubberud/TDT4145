@@ -52,4 +52,4 @@ def kjøpe_ni_voksenbilletter():
         insert('bestiltStol', ('billettID', 'stolID'), (billettID, stolID))
 
     total_price = 9 * pris_voksenbillett
-    print(f'Prisen for dine 9 voksenbilletter til forestillingen er: {total_price}')
+    print(f'    Prisen for dine 9 voksenbilletter til forestillingen er: {total_price}')
