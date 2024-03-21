@@ -114,29 +114,29 @@ def insert_stoler_Galleri(sal, rows_galleri):
 #         insert('Akt', ('navnPaStykke', 'nummer', 'navn'), ('Kongsemnene', i, 'ukjent'))
 #     insert('Akt', ('navnPaStykke', 'nummer', 'navn'), ('Størst av alt er kjærligheten', 1, 'ukjent'))
 
-def insert_oppgaver():
-    oppgaver = ['Regi', 'Scenografi og kostymer', 'Musikalsk ansvarlig', 'Lysdesign', 'Dramaturg', 'Regi og musikkutvelgelse']
-    for oppgave in oppgaver:
-        insert('Oppgave', ['oppgavetittel'], [oppgave])
+# def insert_oppgaver():
+#     oppgaver = ['Regi', 'Scenografi og kostymer', 'Musikalsk ansvarlig', 'Lysdesign', 'Dramaturg', 'Regi og musikkutvelgelse']
+#     for oppgave in oppgaver:
+#         insert('Oppgave', ['oppgavetittel'], [oppgave])
 
-def insert_medvirkende_person():
-    medvirkende_personer_størst_av_alt_er_kjærligheten = [
-         ('corell@teater.no', 'Jonas Corell Petersen', 'Regi'),
-         ('gehrt@teater.no', 'David Gehrt', 'Scenografi og kostymer'),
-         ('tønder@teater.no', 'Gaute Tønder', 'Musikalsk ansvarlig'),
-         ('mikaelsen@teater.no', 'Magnus Mikaelsen', 'Lysdesign'),
-         ('spender@teater.no', 'Kristoffer Spender', 'Dramaturg')
-    ]
-    medvirkende_personer_kongsemnene = [
-         ('butusov@teater.no', 'Yury Butusov', 'Regi og musikkutvelgelse'),
-         ('kokusai@teater.no', 'Aleksandr Shishkin-Hokusai', 'Scenografi og kostymer'),
-         ('myten@teater.no', 'Eivind Myren', 'lysdesign'),
-         ('stokke@teater.no', 'Mina Rype Stokke', 'Dramaturg')
-    ]
-    for epost, navn, ansattStatus in medvirkende_personer_størst_av_alt_er_kjærligheten:
-        insert('MedvirkendePerson', ('epostadresse', 'navn', 'ansattStatus'), (epost, navn, ansattStatus))
-    for epost, navn, ansattStatus in medvirkende_personer_kongsemnene:
-        insert('MedvirkendePerson', ('epostadresse', 'navn', 'ansattStatus'), (epost, navn, ansattStatus))
+# def insert_medvirkende_person():
+#     medvirkende_personer_størst_av_alt_er_kjærligheten = [
+#          ('corell@teater.no', 'Jonas Corell Petersen', 'Regi'),
+#          ('gehrt@teater.no', 'David Gehrt', 'Scenografi og kostymer'),
+#          ('tønder@teater.no', 'Gaute Tønder', 'Musikalsk ansvarlig'),
+#          ('mikaelsen@teater.no', 'Magnus Mikaelsen', 'Lysdesign'),
+#          ('spender@teater.no', 'Kristoffer Spender', 'Dramaturg')
+#     ]
+#     medvirkende_personer_kongsemnene = [
+#          ('butusov@teater.no', 'Yury Butusov', 'Regi og musikkutvelgelse'),
+#          ('kokusai@teater.no', 'Aleksandr Shishkin-Hokusai', 'Scenografi og kostymer'),
+#          ('myten@teater.no', 'Eivind Myren', 'lysdesign'),
+#          ('stokke@teater.no', 'Mina Rype Stokke', 'Dramaturg')
+#     ]
+#     for epost, navn, ansattStatus in medvirkende_personer_størst_av_alt_er_kjærligheten:
+#         insert('MedvirkendePerson', ('epostadresse', 'navn', 'ansattStatus'), (epost, navn, ansattStatus))
+#     for epost, navn, ansattStatus in medvirkende_personer_kongsemnene:
+#         insert('MedvirkendePerson', ('epostadresse', 'navn', 'ansattStatus'), (epost, navn, ansattStatus))
 
 insert_stoler_Hovedscenen()
 insert_stoler_Parkett('Gamle scene', 10)
@@ -149,5 +149,5 @@ insert_stoler_Galleri('Gamle scene', 3)
 # insert_saler()
 # insert_forestillinger()
 # insert_akter()
-insert_oppgaver()
-insert_medvirkende_person()
+# insert_oppgaver()
+# insert_medvirkende_person()
