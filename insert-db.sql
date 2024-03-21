@@ -220,4 +220,3 @@ VALUES
 ('Størst av alt er kjærligheten', 'Gruppe 10', 320), 
 ('Størst av alt er kjærligheten', 'Gruppe honnør 10', 270);
 
-

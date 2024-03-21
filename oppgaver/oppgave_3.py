@@ -1,5 +1,5 @@
 import sqlite3
-from utils import query, insert, insert_return_rowID
+from oppgaver.utils import query, insert, insert_return_rowID
 from random import randint
 
 def kjøpe_ni_voksenbilletter():
@@ -9,7 +9,7 @@ def kjøpe_ni_voksenbilletter():
             (mobilnummer, 'dummy_fornavn', 'dummy_etternavn', '0010', 'slottsplassen', 1, 'Ordinær')
     )
 
-    forestillingID = query(f'SELECT forestillingID FROM Forestilling WHERE navnPaStykke = "Størst av alt er kjærligheten" AND dato = "2024-02-03"')[0][0]
+    forestillingID = query(f'SELECT * FROM Forestilling WHERE navnPaStykke = "Størst av alt er kjærligheten" AND dato = "2024-02-03"')[0][0]
     stykke = query(f'SELECT navnPaStykke FROM Forestilling NATURAL JOIN Teaterstykke WHERE forestillingID = { forestillingID }')[0][0]
     sal = query(f"SELECT salnavn FROM Teaterstykke NATURAL JOIN Teatersal WHERE navnPaStykke = '{stykke}'")[0][0]
     alle_ledige_stolIDer_og_ders_rad = query(f'SELECT stolID, radnummer FROM Stol Where stolID NOT IN (SELECT stolID from bestiltStol)')
@@ -27,4 +27,4 @@ def kjøpe_ni_voksenbilletter():
         insert('bestiltStol', ('billettID', 'stolID'), (billettID, solgt_stol))
     print(f'Prisen for dine 9 voksenbilletter til { stykke } er: { 9 * pris_voksenbillett }')
 
-kjøpe_ni_voksenbilletter()
+# kjøpe_ni_voksenbilletter()

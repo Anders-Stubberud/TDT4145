@@ -1,12 +1,13 @@
 import os
-from utils import query, insert, insert_return_rowID
-
-mobilnummer = 12345678
-insert('Kundeprofil', ('mobilnummer', 'fornavn', 'etternavn', 'postnummer', 'gatenavn', 'gatenummer', 'gruppenavn'), 
-        (mobilnummer, 'dummy_fornavn', 'dummy_etternavn', '0010', 'slottsplassen', 1, 'Ordinær')
-)
+from oppgaver.utils import query, insert, insert_return_rowID
+from random import randint
 
 def insert_solgte_stoler_hovedscenen():
+
+    mobilnummer = randint(1, 10000000000)
+    insert('Kundeprofil', ('mobilnummer', 'fornavn', 'etternavn', 'postnummer', 'gatenavn', 'gatenummer', 'gruppenavn'), 
+            (mobilnummer, 'dummy_fornavn', 'dummy_etternavn', '0010', 'slottsplassen', 1, 'Ordinær')
+    )
 
     # oppretter kundeprofil billettKjøp registeres mot
     # oppretter ett billettkjøp som alle billetter registreres mot
@@ -26,6 +27,11 @@ def insert_solgte_stoler_hovedscenen():
         insert('bestiltStol', ('billettID', 'stolID'), (billettID, solgt_stol_ID))
 
 def insert_solgte_stoler_gamle_scene():
+
+    mobilnummer = randint(1, 10000000000)
+    insert('Kundeprofil', ('mobilnummer', 'fornavn', 'etternavn', 'postnummer', 'gatenavn', 'gatenummer', 'gruppenavn'), 
+            (mobilnummer, 'dummy_fornavn', 'dummy_etternavn', '0010', 'slottsplassen', 1, 'Ordinær')
+    )
 
     kjøpsID = insert_return_rowID('BillettKjop', ('dato', 'tid', 'mobilnummer'), ('2024-01-02', '12:00', mobilnummer))
 
@@ -55,5 +61,5 @@ def insert_solgte_stoler_gamle_scene():
         billettID = insert_return_rowID('Billett', ('stolID', 'forestillingID', 'kjopsID'), (solgt_stol_ID, forestillingID, kjøpsID))
         insert('bestiltStol', ('billettID', 'stolID'), (billettID, solgt_stol_ID))
 
-insert_solgte_stoler_hovedscenen()
-insert_solgte_stoler_gamle_scene()
+# insert_solgte_stoler_hovedscenen()
+# insert_solgte_stoler_gamle_scene()
