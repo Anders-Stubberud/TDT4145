@@ -57,6 +57,19 @@ while True:
 
     elif oppgave == 8:
         print('Utfører samtlige oppgaver')
+        conn = sqlite3.connect('teater.db')
+        try:
+            with open('schema.sql', 'r', encoding='utf-8') as f:
+                schema_sql = f.read()
+                conn.executescript(schema_sql)
+            with open('insert-db.sql', 'r', encoding='utf-8') as f:
+                insert_sql = f.read()
+                conn.executescript(insert_sql)
+            print("Databasen har nå fått data.")
+        except sqlite3.Error as e:
+            print("Feil:", e)
+        finally:
+            conn.close()
         oppgave_1.insert_stoler_Hovedscenen()
         oppgave_1.insert_stoler_Parkett('Gamle scene', 10)
         oppgave_1.insert_stoler_Balkong('Gamle scene', 4)
@@ -71,13 +84,6 @@ while True:
 
     elif oppgave == 9:
         print('Tømmer databasen.')
-        # conn = sqlite3.connect('teater.db')
-        # cursor = conn.cursor()
-        # cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
-        # tables = cursor.fetchall()
-        # for table in tables:
-        #     table_name = table[0]
-        #     cursor.execute(f"DELETE FROM {table_name};")
         conn = sqlite3.connect('teater.db')
         try:
             with open('drop_tables.sql', 'r', encoding='utf-8') as f:
